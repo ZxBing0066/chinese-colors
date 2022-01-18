@@ -1,42 +1,124 @@
-html,
-body,
-#root,
-.main {
-    height: 100%;
+$margin: 0.3rem;
+
+body {
+    font-size: 14px;
+    font-family: LiSu, KaiTi, STKaiTi, monospace;
+    text-transform: uppercase;
 }
 
 .main {
     display: flex;
+    will-change: background-color, color;
+    transition: background-color 0.5s, color 0.5s;
+    background-image: url(./texture.png);
 }
 
 .list {
-    height: 100%;
     display: flex;
     flex-wrap: wrap;
-    overflow: auto;
+    width: 60%;
 }
 .color-card {
     display: flex;
-    flex-direction: column;
-    min-width: 150px;
+    min-width: 10rem;
     flex: 1;
-    text-align: center;
     align-items: center;
     font-weight: 900;
-    font-family: KaiTi, STKaiTi;
+    border-radius: 0.2rem;
+    justify-items: center;
 
     cursor: pointer;
-    margin: 4px;
+    margin: $margin;
 
-    will-change: background;
-    transition: background 1s;
+    will-change: background, opacity;
+    transition: background 1s, opacity 0.5s, box-shadow 0.5s;
+
+    &[data-active='true'] {
+        // outline: .2rem solid currentColor;
+    }
+
+    &:hover {
+        opacity: 0.6;
+    }
+
+    .color-bar {
+        height: 100%;
+        width: 0.4rem;
+        will-change: background;
+        transition: background 1s;
+        margin-right: $margin;
+    }
+    .name {
+        margin-bottom: $margin;
+    }
+    .hex {
+        margin-top: $margin;
+    }
 }
 
 .display {
+    position: fixed;
+    top: 0;
+    right: 0;
     width: 40%;
     flex-shrink: 0;
     will-change: background, color;
-    transition: background 1s;
-    padding: 4px;
-    margin: 4px;
+    transition: background 0.5s, color 0.5s;
+    padding: $margin * 2;
+    box-sizing: border-box;
+}
+
+.color-strip {
+    height: 1px;
+    width: 8rem;
+    background-color: rgba(255, 255, 255, 0.4);
+    .color-bar {
+        height: 2px;
+    }
+    + .color-strip {
+        margin-top: $margin;
+    }
+    .color-r {
+        background-color: rgba(255, 0, 0, 0.3);
+    }
+    .color-g {
+        background-color: rgba(0, 128, 0, 0.3);
+    }
+    .color-b {
+        background-color: rgba(0, 0, 255, 0.3);
+    }
+}
+
+.ring {
+    width: 2rem;
+    height: 2rem;
+    position: relative;
+
+    .text {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    path.progress {
+        will-change: stroke-dasharray, stroke, opacity;
+        transition: stroke-dasharray 0.3s ease 0s, stroke 0.3s ease 0s, opacity 0.3s ease 0s;
+    }
+    .progress {
+        stroke: #29b7cb;
+    }
+    .bg {
+        stroke: #c4d7d6;
+    }
+}
+
+.ring + .ring {
+    margin-left: $margin;
+}
+
+.rgb-ring {
+    display: flex;
 }

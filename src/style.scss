@@ -1,0 +1,42 @@
+html,
+body,
+#root,
+.main {
+    height: 100%;
+}
+
+.main {
+    display: flex;
+}
+
+.list {
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+}
+.color-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+    flex: 1;
+    text-align: center;
+    align-items: center;
+    font-weight: 900;
+    font-family: KaiTi, STKaiTi;
+
+    cursor: pointer;
+    margin: 4px;
+
+    will-change: background;
+    transition: background 1s;
+}
+
+.display {
+    width: 40%;
+    flex-shrink: 0;
+    will-change: background, color;
+    transition: background 1s;
+    padding: 4px;
+    margin: 4px;
+}

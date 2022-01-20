@@ -1,0 +1,24 @@
+{
+  "name": "color-of-china",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "ci": "echo \"No ci script yet\""
+  },
+  "dependencies": {
+    "color": "^4.2.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@types/color": "^3.0.2",
+    "@types/react": "^17.0.33",
+    "@types/react-dom": "^17.0.10",
+    "@vitejs/plugin-react": "^1.0.7",
+    "sass": "^1.48.0",
+    "typescript": "^4.4.4",
+    "vite": "^2.7.2"
+  }
+}

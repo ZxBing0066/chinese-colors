@@ -1,0 +1,187 @@
+$margin: 0.3rem;
+
+body {
+    font-size: 14px;
+    font-family: 'Bradley Hand', 'Academy Engraved LET', 'American Typewriter', monospace, 'Weibei SC', STXingkai,
+        'KaiTi SC', STKaiTi, monospace;
+    text-transform: uppercase;
+}
+
+.main {
+    display: flex;
+    will-change: background-color, color;
+    transition: background-color 0.5s, color 0.5s;
+    background-image: url(./texture.png);
+    padding-top: 3rem;
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 60%;
+    padding-left: 1.4rem;
+    box-sizing: border-box;
+}
+
+.color-card {
+    display: flex;
+    min-width: 10rem;
+    flex: 1;
+    align-items: center;
+    font-weight: 900;
+    border-radius: 1px;
+    justify-items: center;
+    background-color: rgba(255, 255, 255, 0.3);
+
+    cursor: pointer;
+    margin: 0 $margin $margin * 2;
+
+    will-change: background, opacity, color;
+    transition: background 1s, color 0.5s, opacity 0.5s;
+
+    &[data-active='true'] {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    &:hover {
+        opacity: 0.6;
+    }
+
+    .wrap {
+        padding: $margin;
+    }
+    .color-bar {
+        height: 100%;
+        width: 0.4rem;
+        will-change: background;
+        transition: background 1s;
+        margin-right: $margin;
+    }
+    .name {
+        margin-bottom: $margin;
+    }
+    .hex {
+        margin-top: $margin;
+    }
+}
+
+.display {
+    position: fixed;
+    top: 2rem;
+    right: 0;
+    width: 40%;
+    flex-shrink: 0;
+    will-change: background, color;
+    transition: background 0.5s, color 0.5s;
+    padding: 0 $margin * 2;
+    box-sizing: border-box;
+    font-family: 'Academy Engraved LET', 'American Typewriter', monospace, 'Xingkai SC';
+
+    h1 {
+        text-align: center;
+        font-size: 5rem;
+        font-weight: 900;
+        letter-spacing: 3rem;
+        text-indent: 3rem;
+        user-select: none;
+        margin: 0 0 1rem;
+    }
+    h2 {
+        text-align: center;
+        font-size: 2rem;
+        user-select: none;
+        margin: 1rem 0 3rem;
+    }
+
+    .wrap {
+        display: flex;
+        padding-left: 3rem;
+        .name,
+        .pinyin {
+            writing-mode: vertical-lr;
+            font-size: 2.5rem;
+            line-height: 1;
+        }
+        .name {
+            margin-bottom: 2rem;
+        }
+        .pinyin {
+        }
+
+        .hex,
+        .rgb {
+            margin-bottom: $margin;
+            user-select: all;
+        }
+        .hex {
+            &::before {
+                content: 'HEX: ';
+                margin-right: $margin;
+            }
+        }
+        .rgb {
+            &::before {
+                content: 'RGB: ';
+                margin-right: $margin;
+            }
+        }
+
+        .text {
+            margin-right: 2rem;
+            display: flex;
+        }
+    }
+}
+
+.rgb-strips {
+    .rgb-strip {
+        height: 1px;
+        width: 8rem;
+        background-color: rgba(255, 255, 255, 0.4);
+        .color-bar {
+            height: 2px;
+        }
+        + .rgb-strip {
+            margin-top: $margin;
+        }
+        .color-r {
+            background-color: rgba(255, 0, 0, 0.2);
+        }
+        .color-g {
+            background-color: rgba(0, 128, 0, 0.2);
+        }
+        .color-b {
+            background-color: rgba(0, 0, 255, 0.2);
+        }
+    }
+}
+
+.rgb-card {
+    display: flex;
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+    .rgb-block {
+        border-left: 1px solid rgba(255, 255, 255, 0.3);
+        width: 3.4rem;
+        text-align: right;
+        font-size: 1.5rem;
+        padding: 1rem 0.5rem 0;
+        position: relative;
+    }
+    .color-r,
+    .color-g,
+    .color-b {
+        &::before {
+            content: 'R';
+            font-size: 12px;
+            position: absolute;
+            left: 0.5rem;
+            top: 0.5rem;
+        }
+    }
+    .color-g::before {
+        content: 'G';
+    }
+    .color-b::before {
+        content: 'B';
+    }
+}

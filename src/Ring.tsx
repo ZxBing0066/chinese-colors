@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 
+import './ring.scss';
+
 const Size = 100;
 const Offset = 3;
 const HalfSize = 100 / 2;

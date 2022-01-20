@@ -5,7 +5,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "ci": "echo \"No ci script yet\""
+    "cm": "cz"
   },
   "dependencies": {
     "color": "^4.2.0",
@@ -15,11 +15,19 @@
   },
   "devDependencies": {
     "@types/color": "^3.0.2",
+    "@types/node": "*",
     "@types/react": "^17.0.33",
     "@types/react-dom": "^17.0.10",
     "@vitejs/plugin-react": "^1.0.7",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.3.0",
     "sass": "^1.48.0",
     "typescript": "^4.4.4",
     "vite": "^2.7.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

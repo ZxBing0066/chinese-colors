@@ -98,8 +98,8 @@ const Display = memo(({ color }: { color: typeof colors[number] }) => {
     }, [color]);
     return (
         <div className='display' style={{ color: fontColor }}>
-            <h1>中国色</h1>
-            <h2>Colors of China</h2>
+            <h1>中国色彩</h1>
+            <h2>Chinese Colors</h2>
             <div className='wrap'>
                 <div className='text'>
                     <div className='pinyin'>{pinyin}</div>

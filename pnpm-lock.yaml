@@ -10,6 +10,7 @@ specifiers:
   commitizen: ^4.2.4
   cz-conventional-changelog: ^3.3.0
   firebase: ^9.6.3
+  normalize.css: ^8.0.1
   react: ^17.0.2
   react-dom: ^17.0.2
   sass: ^1.48.0
@@ -19,6 +20,7 @@ specifiers:
 dependencies:
   color: 4.2.0
   firebase: 9.6.3
+  normalize.css: 8.0.1
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
 
@@ -2008,6 +2010,10 @@ packages:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /normalize.css/8.0.1:
+    resolution: {integrity: sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg==}
+    dev: false
 
   /object-assign/4.1.1:
     resolution: {integrity: sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=}

@@ -111,6 +111,9 @@ const Display = memo(({ color }: { color: typeof colors[number] }) => {
                     <RgbCard RGB={RGB} />
                 </div>
             </div>
+            <i className='question'></i>
+            <i className='info'></i>
+            <footer className='footer'>Copyright</footer>
         </div>
     );
 });

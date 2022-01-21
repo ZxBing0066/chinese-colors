@@ -3,7 +3,7 @@ $margin: 0.3rem;
 body {
     font-size: 14px;
     font-family: 'Bradley Hand', 'Academy Engraved LET', 'American Typewriter', monospace, 'Weibei SC', STXingkai,
-        'KaiTi SC', STKaiTi, monospace;
+        'KaiTi SC', STKaiTi;
     text-transform: uppercase;
 }
 
@@ -67,7 +67,7 @@ body {
 
 .display {
     position: fixed;
-    top: 2rem;
+    padding-top: 3rem;
     right: 0;
     width: 40%;
     flex-shrink: 0;
@@ -76,13 +76,14 @@ body {
     padding: 0 $margin * 2;
     box-sizing: border-box;
     font-family: 'Academy Engraved LET', 'American Typewriter', monospace, 'Xingkai SC';
+    height: 100%;
 
     h1 {
         text-align: center;
         font-size: 5rem;
         font-weight: 900;
-        letter-spacing: 3rem;
-        text-indent: 3rem;
+        line-height: 1.4em;
+        letter-spacing: 2rem;
         user-select: none;
         margin: 0 0 1rem;
     }
@@ -96,39 +97,42 @@ body {
     .wrap {
         display: flex;
         padding-left: 3rem;
-        .name,
-        .pinyin {
-            writing-mode: vertical-lr;
-            font-size: 2.5rem;
-            line-height: 1;
-        }
-        .name {
-            margin-bottom: 2rem;
-        }
-        .pinyin {
-        }
-
-        .hex,
-        .rgb {
-            margin-bottom: $margin;
-            user-select: all;
-        }
-        .hex {
-            &::before {
-                content: 'HEX: ';
-                margin-right: $margin;
-            }
-        }
-        .rgb {
-            &::before {
-                content: 'RGB: ';
-                margin-right: $margin;
-            }
-        }
 
         .text {
             margin-right: 2rem;
             display: flex;
+            justify-content: space-between;
+            width: 7rem;
+            .name,
+            .pinyin {
+                writing-mode: vertical-lr;
+                font-size: 2.5rem;
+                flex: 1;
+            }
+            .name {
+                margin-left: $margin;
+            }
+        }
+
+        .color {
+            padding-top: $margin;
+            .hex,
+            .rgb {
+                margin-bottom: $margin * 2;
+                user-select: all;
+            }
+            .hex {
+                &::before {
+                    content: 'HEX: ';
+                    margin-right: $margin;
+                }
+            }
+            .rgb {
+                &::before {
+                    content: 'RGB: ';
+                    margin-right: $margin;
+                }
+            }
         }
     }
 }
@@ -145,13 +149,13 @@ body {
             margin-top: $margin;
         }
         .color-r {
-            background-color: rgba(255, 0, 0, 0.2);
+            background-color: rgba(200, 0, 0, 0.2);
         }
         .color-g {
-            background-color: rgba(0, 128, 0, 0.2);
+            background-color: rgba(0, 200, 0, 0.2);
         }
         .color-b {
-            background-color: rgba(0, 0, 255, 0.2);
+            background-color: rgba(0, 0, 200, 0.2);
         }
     }
 }
@@ -184,4 +188,42 @@ body {
     .color-b::before {
         content: 'B';
     }
+}
+
+.question,
+.info {
+    position: absolute;
+    right: 1rem;
+    width: 2rem;
+    height: 2rem;
+    display: block;
+    line-height: 2rem;
+    font-size: 1.5rem;
+    text-align: center;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+
+    &::before {
+        content: '?';
+        font-family: monospace;
+        font-style: normal;
+        text-transform: none;
+    }
+}
+
+.question {
+    bottom: 5rem;
+}
+.info {
+    bottom: 8rem;
+    &::before {
+        content: 'i';
+    }
+}
+
+.footer {
+    position: absolute;
+    bottom: 5rem;
+    padding-left: 3rem;
 }

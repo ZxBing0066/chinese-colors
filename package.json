@@ -10,6 +10,7 @@
   "dependencies": {
     "color": "^4.2.0",
     "firebase": "^9.6.3",
+    "normalize.css": "^8.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },

@@ -1,18 +1,23 @@
 $margin: 0.3rem;
+$special-font: 'Academy Engraved LET', 'American Typewriter', monospace, 'Xingkai SC';
+$default-font: 'Bradley Hand', 'Academy Engraved LET', 'American Typewriter', monospace, 'Weibei SC', STXingkai,
+    'KaiTi SC', STKaiTi;
+$normal-font: monospace;
 
 body {
     font-size: 14px;
-    font-family: 'Bradley Hand', 'Academy Engraved LET', 'American Typewriter', monospace, 'Weibei SC', STXingkai,
-        'KaiTi SC', STKaiTi;
     text-transform: uppercase;
+    min-width: 1280px;
+    font-family: $default-font;
 }
 
 .main {
-    display: flex;
+    width: 100%;
     will-change: background-color, color;
     transition: background-color 0.5s, color 0.5s;
     background-image: url(./texture.png);
     padding-top: 3rem;
+    position: relative;
 }
 
 .list {
@@ -66,16 +71,15 @@ body {
 }
 
 .display {
-    position: fixed;
-    padding-top: 3rem;
+    position: absolute;
+    top: 0;
     right: 0;
     width: 40%;
     flex-shrink: 0;
     will-change: background, color;
     transition: background 0.5s, color 0.5s;
-    padding: 0 $margin * 2;
+    padding: 3rem $margin * 2 0;
     box-sizing: border-box;
-    font-family: 'Academy Engraved LET', 'American Typewriter', monospace, 'Xingkai SC';
     height: 100%;
 
     h1 {
@@ -93,16 +97,22 @@ body {
         user-select: none;
         margin: 1rem 0 3rem;
     }
+    h1,
+    h2 {
+        font-family: $special-font;
+    }
 
     .wrap {
         display: flex;
-        padding-left: 3rem;
+        justify-content: center;
 
         .text {
             margin-right: 2rem;
             display: flex;
             justify-content: space-between;
             width: 7rem;
+            font-family: $special-font;
+
             .name,
             .pinyin {
                 writing-mode: vertical-lr;
@@ -116,6 +126,7 @@ body {
 
         .color {
             padding-top: $margin;
+            font-family: $normal-font;
             .hex,
             .rgb {
                 margin-bottom: $margin * 2;

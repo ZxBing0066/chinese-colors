@@ -11,6 +11,7 @@ const colors = _colors.sort((a, b) => {
     return colorB.hue() - colorA.hue() || colorB.saturationv() - colorA.saturationv();
 });
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 const Context = createContext<{ handleChange: (e: MouseEvent<HTMLElement>) => void }>({ handleChange: () => {} });
 
 const getFontColor = (hex: string) => {
@@ -22,14 +23,14 @@ const getFontColor = (hex: string) => {
 
 const RGBStrip = memo(({ v, type }: { v: number; type: string }) => {
     return (
-        <div className='rgb-strip'>
+        <div className="rgb-strip">
             <div className={'color-bar color-' + type} style={{ width: (v / 255) * 100 + '%' }}></div>
         </div>
     );
 });
 const RGBStrips = memo(({ RGB }: { RGB: number[] }) => {
     return (
-        <div className='rgb-strips'>
+        <div className="rgb-strips">
             {RGB.map((v, i) => (
                 <RGBStrip v={v} key={i} type={'rgb'[i]} />
             ))}
@@ -39,7 +40,7 @@ const RGBStrips = memo(({ RGB }: { RGB: number[] }) => {
 
 const RgbCard = memo(({ RGB }: { RGB: number[] }) => {
     return (
-        <div className='rgb-card'>
+        <div className="rgb-card">
             {RGB.map((v, i) => (
                 <span className={'rgb-block color-' + 'rgb'[i]} key={i}>
                     {v}
@@ -60,17 +61,17 @@ const ColorCard = memo(({ color, index, active }: { color: typeof colors[number]
     }, [hex]);
     return (
         <div
-            className='color-card'
+            className="color-card"
             style={{ color: fontColor }}
             data-index={index}
             data-active={active}
             onClick={handleChange}
         >
-            <div className='color-bar' style={{ background: bg }} />
-            <div className='wrap'>
-                <div className='name'>{name}</div>
+            <div className="color-bar" style={{ background: bg }} />
+            <div className="wrap">
+                <div className="name">{name}</div>
                 <RGBStrips RGB={RGB} />
-                <div className='hex'>{hex}</div>
+                <div className="hex">{hex}</div>
             </div>
         </div>
     );
@@ -82,7 +83,7 @@ const ColorList = memo(({ currentColorIndex }: { currentColorIndex: number }) =>
         setEffectColors(colors);
     }, []);
     return (
-        <div className='list'>
+        <div className="list">
             {effectColors.map((color, i) => (
                 <ColorCard color={color} index={i} key={i} active={currentColorIndex === i} />
             ))}
@@ -97,23 +98,23 @@ const Display = memo(({ color }: { color: typeof colors[number] }) => {
         setFontColor(getFontColor(hex));
     }, [color]);
     return (
-        <div className='display' style={{ color: fontColor }}>
+        <div className="display" style={{ color: fontColor }}>
             <h1>中国色彩</h1>
             <h2>Chinese Colors</h2>
-            <div className='wrap'>
-                <div className='text'>
-                    <div className='pinyin'>{pinyin}</div>
-                    <div className='name'>{name}</div>
+            <div className="wrap">
+                <div className="text">
+                    <div className="pinyin">{pinyin}</div>
+                    <div className="name">{name}</div>
                 </div>
-                <div className='color'>
-                    <div className='hex'>{hex}</div>
-                    <div className='rgb'>rgb({RGB.join(',')})</div>
+                <div className="color">
+                    <div className="hex">{hex}</div>
+                    <div className="rgb">rgb({RGB.join(',')})</div>
                     <RgbCard RGB={RGB} />
                 </div>
             </div>
-            <i className='question'></i>
-            <i className='info'></i>
-            <footer className='footer'>Copyright</footer>
+            <i className="question"></i>
+            <i className="info"></i>
+            <footer className="footer">Copyright</footer>
         </div>
     );
 });
@@ -127,7 +128,7 @@ function App() {
     }, []);
 
     return (
-        <div className='main' style={{ backgroundColor: currentColor.hex }}>
+        <div className="main" style={{ backgroundColor: currentColor.hex }}>
             <Context.Provider value={{ handleChange }}>
                 <ColorList currentColorIndex={currentColorIndex} />
             </Context.Provider>

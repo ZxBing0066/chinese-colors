@@ -1,4 +1,4 @@
-import { createContext, memo, MouseEvent, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, memo, MouseEvent, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import Color from 'color';
 
 import './style.scss';
@@ -94,8 +94,23 @@ const ColorList = memo(({ currentColorIndex }: { currentColorIndex: number }) =>
 const Display = memo(({ color }: { color: typeof colors[number] }) => {
     const { name, hex, RGB, pinyin, CMYK } = color;
     const [fontColor, setFontColor] = useState('black');
+    const nmRef = useRef<HTMLDivElement>(null);
+    const pyRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
         setFontColor(getFontColor(hex));
+
+        pyRef.current?.classList.remove('animate');
+        nmRef.current?.classList.remove('animate');
+        const pyT = setTimeout(() => {
+            pyRef.current?.classList.add('animate');
+        }, 10);
+        const nmT = setTimeout(() => {
+            nmRef.current?.classList.add('animate');
+        }, 10);
+        return () => {
+            clearTimeout(pyT);
+            clearTimeout(nmT);
+        };
     }, [color]);
     return (
         <div className="display" style={{ color: fontColor }}>
@@ -103,8 +118,12 @@ const Display = memo(({ color }: { color: typeof colors[number] }) => {
             <h2>Chinese Colors</h2>
             <div className="wrap">
                 <div className="text">
-                    <div className="pinyin">{pinyin}</div>
-                    <div className="name">{name}</div>
+                    <div className="pinyin" ref={pyRef}>
+                        {pinyin}
+                    </div>
+                    <div className="name" ref={nmRef}>
+                        {name}
+                    </div>
                 </div>
                 <div className="color">
                     <div className="hex">{hex}</div>
@@ -126,6 +145,10 @@ function App() {
         const index = e.currentTarget.dataset.index;
         index != null && setCurrentColorIndex(+index);
     }, []);
+
+    useEffect(() => {
+        document.body.style.backgroundColor = currentColor.hex;
+    }, [currentColor.hex]);
 
     return (
         <div className="main" style={{ backgroundColor: currentColor.hex }}>

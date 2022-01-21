@@ -4,20 +4,56 @@ $default-font: 'Bradley Hand', 'Academy Engraved LET', 'American Typewriter', mo
     'KaiTi SC', STKaiTi;
 $normal-font: monospace;
 
+@keyframes shake {
+    from {
+        transform: rotate(0deg);
+    }
+    20% {
+        transform: rotate(-30deg) scale(1.2);
+    }
+    50% {
+        transform: rotate(40deg) scale(1.2);
+    }
+    to {
+        transform: rotate(0deg) scale(1.2);
+    }
+}
+
+html,
+body,
+#root,
+.main {
+    height: 100%;
+}
+
 body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     font-size: 14px;
     text-transform: uppercase;
-    min-width: 1280px;
+    min-width: 1000px;
     font-family: $default-font;
+}
+
+body,
+.main {
+    background-image: url(./texture.png);
+    will-change: background-color, color;
+    transition: background-color 0.5s, color 0.5s;
+    background-color: white;
+}
+
+#root {
+    position: relative;
 }
 
 .main {
     width: 100%;
-    will-change: background-color, color;
-    transition: background-color 0.5s, color 0.5s;
-    background-image: url(./texture.png);
+    height: 100%;
     padding-top: 3rem;
-    position: relative;
+    box-sizing: border-box;
+    overflow: auto;
 }
 
 .list {
@@ -74,12 +110,11 @@ body {
     position: absolute;
     top: 0;
     right: 0;
-    width: 40%;
-    flex-shrink: 0;
-    will-change: background, color;
-    transition: background 0.5s, color 0.5s;
-    padding: 3rem $margin * 2 0;
     box-sizing: border-box;
+    width: 40%;
+    will-change: color;
+    transition: color 0.5s;
+    padding: 3rem $margin * 2 0;
     height: 100%;
 
     h1 {
@@ -118,6 +153,13 @@ body {
                 writing-mode: vertical-lr;
                 font-size: 2.5rem;
                 flex: 1;
+                will-change: max-height;
+                overflow: hidden;
+                max-height: 0;
+                &.animate {
+                    transition: max-height 1s;
+                    max-height: 300px;
+                }
             }
             .name {
                 margin-left: $margin;
@@ -214,20 +256,26 @@ body {
     border-radius: 50%;
     border: 3px solid rgba(255, 255, 255, 0.3);
     cursor: pointer;
+    will-change: transform;
 
     &::before {
         content: '?';
         font-family: monospace;
         font-style: normal;
         text-transform: none;
+        will-change: transform;
+        transition: transform 0.5s;
+    }
+    &:hover {
+        animation: 2s forwards shake;
     }
 }
 
 .question {
-    bottom: 5rem;
+    bottom: 2rem;
 }
 .info {
-    bottom: 8rem;
+    bottom: 5rem;
     &::before {
         content: 'i';
     }
@@ -235,6 +283,6 @@ body {
 
 .footer {
     position: absolute;
-    bottom: 5rem;
+    bottom: 2rem;
     padding-left: 3rem;
 }

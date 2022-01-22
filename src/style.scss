@@ -158,7 +158,7 @@ body,
                 max-height: 0;
                 &.animate {
                     transition: max-height 1s;
-                    max-height: 300px;
+                    max-height: 500px;
                 }
             }
             .name {
@@ -246,7 +246,7 @@ body,
 .question,
 .info {
     position: absolute;
-    right: 1rem;
+    right: 2rem;
     width: 2rem;
     height: 2rem;
     display: block;
@@ -256,7 +256,7 @@ body,
     border-radius: 50%;
     border: 3px solid rgba(255, 255, 255, 0.3);
     cursor: pointer;
-    will-change: transform;
+    will-change: transform, background-color;
 
     &::before {
         content: '?';
@@ -268,6 +268,7 @@ body,
     }
     &:hover {
         animation: 2s forwards shake;
+        background-color: rgba(255, 255, 255, 0.2);
     }
 }
 
@@ -285,4 +286,9 @@ body,
     position: absolute;
     bottom: 2rem;
     padding-left: 3rem;
+    a,
+    a:active,
+    a:visited {
+        color: inherit;
+    }
 }

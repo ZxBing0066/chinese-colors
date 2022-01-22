@@ -133,7 +133,20 @@ const Display = memo(({ color }: { color: typeof colors[number] }) => {
             </div>
             <i className="question"></i>
             <i className="info"></i>
-            <footer className="footer">Copyright</footer>
+            <footer className="footer">
+                <p>
+                    Copyright © 2021 by{' '}
+                    <a href="https://github.com/ZxBing0066/" target="_blank">
+                        ZxBing0066
+                    </a>
+                </p>
+                <p>
+                    颜色数据来自{' '}
+                    <a href="http://zhongguose.com/" target="_blank">
+                        中国色
+                    </a>
+                </p>
+            </footer>
         </div>
     );
 });

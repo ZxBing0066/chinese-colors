@@ -2,21 +2,13 @@ import { createContext, memo, MouseEvent, useCallback, useContext, useEffect, us
 import Color from 'color';
 
 import './style.scss';
-
-import _colors from './colors.json';
-
-const colors = _colors.sort((a, b) => {
-    const colorA = Color(a.hex),
-        colorB = Color(b.hex);
-    return colorB.hue() - colorA.hue() || colorB.saturationv() - colorA.saturationv();
-});
+import colors from './colors.json';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const Context = createContext<{ handleChange: (e: MouseEvent<HTMLElement>) => void }>({ handleChange: () => {} });
 
 const getFontColor = (hex: string) => {
     const color = Color(hex);
-    console.log(color, Color, color.isDark());
 
     return color.isDark() ? color.lighten(0.7).hex() : color.darken(0.7).hex();
 };
@@ -78,15 +70,21 @@ const ColorCard = memo(({ color, index, active }: { color: typeof colors[number]
 });
 
 const ColorList = memo(({ currentColorIndex }: { currentColorIndex: number }) => {
-    const [effectColors, setEffectColors] = useState(() => colors.slice(0, 100));
-    useEffect(() => {
-        setEffectColors(colors);
-    }, []);
+    // const [effectColors, setEffectColors] = useState(() => colors.slice(0, 100));
+    // useEffect(() => {
+    //     setEffectColors(colors);
+    // }, []);
     return (
         <div className="list">
-            {effectColors.map((color, i) => (
+            {colors.map((color, i) => (
                 <ColorCard color={color} index={i} key={i} active={currentColorIndex === i} />
             ))}
+            <div className="placeholder"></div>
+            <div className="placeholder"></div>
+            <div className="placeholder"></div>
+            <div className="placeholder"></div>
+            <div className="placeholder"></div>
+            <div className="placeholder"></div>
         </div>
     );
 });
@@ -112,6 +110,7 @@ const Display = memo(({ color }: { color: typeof colors[number] }) => {
             clearTimeout(nmT);
         };
     }, [color]);
+
     return (
         <div className="display" style={{ color: fontColor }}>
             <h1>中国色彩</h1>
@@ -152,24 +151,34 @@ const Display = memo(({ color }: { color: typeof colors[number] }) => {
 });
 
 function App() {
-    const [currentColorIndex, setCurrentColorIndex] = useState(7);
+    const [currentColorIndex, setCurrentColorIndex] = useState(() => {
+        const hashToken = location.hash.replace('#', '');
+        if (!hashToken) return 7;
+        const currentColorIndex = colors.findIndex(color => color.pinyin === hashToken);
+        return currentColorIndex >= 0 ? currentColorIndex : 7;
+    });
     const currentColor = useMemo(() => colors[currentColorIndex], [currentColorIndex]);
     const handleChange = useCallback((e: MouseEvent<HTMLElement>) => {
         const index = e.currentTarget.dataset.index;
-        index != null && setCurrentColorIndex(+index);
+        if (index != null) {
+            setCurrentColorIndex(+index);
+            const color = colors[+index];
+            history.replaceState(null, '', `/#${color.pinyin}`);
+        }
     }, []);
+    const [bg, setBg] = useState('white');
 
     useEffect(() => {
-        document.body.style.backgroundColor = currentColor.hex;
+        setBg((document.body.style.backgroundColor = currentColor.hex));
     }, [currentColor.hex]);
 
     return (
-        <div className="main" style={{ backgroundColor: currentColor.hex }}>
-            <Context.Provider value={{ handleChange }}>
+        <Context.Provider value={{ handleChange }}>
+            <div className="main" style={{ backgroundColor: bg }}>
                 <ColorList currentColorIndex={currentColorIndex} />
-            </Context.Provider>
-            <Display color={currentColor} />
-        </div>
+                <Display color={currentColor} />
+            </div>
+        </Context.Provider>
     );
 }
 

@@ -3,14 +3,18 @@ import Color from 'color';
 
 import './style.scss';
 import colors from './colors.json';
+window.Color = Color;
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const Context = createContext<{ handleChange: (e: MouseEvent<HTMLElement>) => void }>({ handleChange: () => {} });
 
+const white = Color('white'),
+    black = Color('black');
+
 const getFontColor = (hex: string) => {
     const color = Color(hex);
-
-    return color.isDark() ? color.lighten(0.7).hex() : color.darken(0.7).hex();
+    return color.isDark() ? color.mix(white).lighten(0.2).hex() : color.mix(black).darken(0.2).hex();
+    // return color.isDark() ? color.lighten(1.1).hex() : color.darken(1.1).hex();
 };
 
 const RGBStrip = memo(({ v, type }: { v: number; type: string }) => {
@@ -96,6 +100,7 @@ const Display = memo(({ color }: { color: typeof colors[number] }) => {
     const pyRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
         setFontColor(getFontColor(hex));
+        console.log(hex, getFontColor(hex));
 
         pyRef.current?.classList.remove('animate');
         nmRef.current?.classList.remove('animate');

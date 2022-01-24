@@ -19,6 +19,9 @@
     <script type="module" src="/src/main.tsx"></script>
     <script>
         if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+        window.addEventListener("beforeinstallprompt", function (promptEvent) {
+            promptEvent.preventDefault();
+        });
     </script>
 </body>
 

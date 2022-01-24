@@ -1,0 +1,18 @@
+{
+    "short_name": "中国色彩",
+    "name": "中国色彩",
+    "description": "中国色彩 - Chinese Colors",
+    "start_url": "/?utm_source=pwa",
+    "scope": "/",
+    "display": "fullscreen",
+    "icons": [
+        {
+            "src": "/icon-192x192.png",
+            "type": "image/png",
+            "sizes": "192x192",
+            "purpose": "any maskable"
+        }
+    ],
+    "theme_color": "#DE1C31",
+    "background_color": "#DE1C31"
+}

@@ -3,7 +3,6 @@ import Color from 'color';
 
 import './style.scss';
 import colors from './colors.json';
-window.Color = Color;
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const Context = createContext<{ handleChange: (e: MouseEvent<HTMLElement>) => void }>({ handleChange: () => {} });
@@ -49,7 +48,7 @@ const RgbCard = memo(({ RGB }: { RGB: number[] }) => {
 const ColorCard = memo(({ color, index, active }: { color: typeof colors[number]; index: number; active: boolean }) => {
     const [bg, setBg] = useState('white');
     const [fontColor, setFontColor] = useState('black');
-    const { name, hex, RGB, pinyin } = color;
+    const { name, hex, RGB } = color;
     const { handleChange } = useContext(Context);
     useEffect(() => {
         setBg(hex);
@@ -74,10 +73,6 @@ const ColorCard = memo(({ color, index, active }: { color: typeof colors[number]
 });
 
 const ColorList = memo(({ currentColorIndex }: { currentColorIndex: number }) => {
-    // const [effectColors, setEffectColors] = useState(() => colors.slice(0, 100));
-    // useEffect(() => {
-    //     setEffectColors(colors);
-    // }, []);
     return (
         <div className="list">
             {colors.map((color, i) => (
@@ -94,13 +89,12 @@ const ColorList = memo(({ currentColorIndex }: { currentColorIndex: number }) =>
 });
 
 const Display = memo(({ color }: { color: typeof colors[number] }) => {
-    const { name, hex, RGB, pinyin, CMYK } = color;
+    const { name, hex, RGB, pinyin } = color;
     const [fontColor, setFontColor] = useState('black');
     const nmRef = useRef<HTMLDivElement>(null);
     const pyRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
         setFontColor(getFontColor(hex));
-        console.log(hex, getFontColor(hex));
 
         pyRef.current?.classList.remove('animate');
         nmRef.current?.classList.remove('animate');

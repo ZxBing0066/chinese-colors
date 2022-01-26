@@ -94,10 +94,11 @@ body,
     border-radius: 1px;
     justify-items: center;
     background-color: rgba(255, 255, 255, 0.3);
+    color: rgba(0, 0, 0, 0.7);
     cursor: pointer;
 
-    will-change: background, opacity, color;
-    transition: background 1s, color 1s, opacity 1s;
+    will-change: background, opacity;
+    transition: background 1s, opacity 1s;
 
     &[data-active='true'] {
         background-color: rgba(255, 255, 255, 0.5);
@@ -132,128 +133,134 @@ body,
     top: 0;
     box-sizing: border-box;
     width: 40%;
-    will-change: color;
-    transition: color $color-transition-duration;
     height: 100%;
     overflow: hidden;
+    background: inherit;
 
-    .common,
-    .editor {
+    .toggler {
         position: absolute;
-        top: 0;
-        left: 0;
+        display: flex;
+        align-items: center;
+        padding: 0.3rem;
+        justify-content: center;
+        border-width: 3px 0 3px 3px;
+        border-style: solid;
+        border-color: rgba(255, 255, 255, 0.2);
+        opacity: 0.5;
+        will-change: opacity;
+        transition: opacity 0.5s;
         right: 0;
-        bottom: 0;
-        padding: 3rem $margin * 2 0;
-    }
-
-    .common {
-        h1 {
-            text-align: center;
-            font-size: 5rem;
-            font-weight: 900;
-            line-height: 1.4em;
-            letter-spacing: 2rem;
-            text-indent: 2rem;
-            user-select: none;
-            margin: 0 0 1rem;
+        top: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 0.3rem 0 0 0.3rem;
+        cursor: pointer;
+        img {
+            width: 1.2rem;
         }
-        h2 {
-            text-align: center;
-            font-size: 2rem;
-            user-select: none;
-            margin: 1rem 0 3rem;
-        }
-        h1 {
-            font-family: $special-font-hz;
-        }
-        h2 {
-            font-family: $special-font-zm;
-        }
-
-        .wrap {
-            display: flex;
-            justify-content: center;
-
-            .text {
-                margin-right: 2rem;
-                display: flex;
-                justify-content: space-between;
-                width: 7rem;
-
-                .name,
-                .pinyin {
-                    writing-mode: vertical-lr;
-                    font-size: 2.5rem;
-                    flex: 1;
-                    will-change: max-height;
-                    overflow: hidden;
-                    max-height: 0;
-                    &.animate {
-                        transition: max-height 1s;
-                        max-height: 500px;
-                    }
-                }
-                .name {
-                    margin-left: $margin;
-                    font-family: $special-font-hz;
-                }
-                .pinyin {
-                    font-family: $special-font-zm;
-                }
-            }
-
-            .color {
-                padding-top: $margin;
-                font-family: $normal-font;
-                .hex,
-                .rgb {
-                    margin-bottom: $margin * 2;
-                    user-select: all;
-                }
-                .hex {
-                    &::before {
-                        content: 'HEX: ';
-                        margin-right: $margin;
-                    }
-                }
-                .rgb {
-                    &::before {
-                        content: 'RGB: ';
-                        margin-right: $margin;
-                    }
-                }
-            }
+        &:hover {
+            opacity: 1;
         }
     }
+}
 
-    .editor {
-        position: relative;
-        transform: translateX(100%);
-        will-change: transform;
-        transition: transform ease-in-out 1s;
+.common,
+.editor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 3rem $margin * 2 0;
+}
 
-        &.open {
-            transform: translateX(0%);
-        }
+.common {
+    h1 {
+        text-align: center;
+        font-size: 5rem;
+        font-weight: 900;
+        line-height: 1.4em;
+        letter-spacing: 2rem;
+        text-indent: 2rem;
+        user-select: none;
+        margin: 0 0 1rem;
+    }
+    h2 {
+        text-align: center;
+        font-size: 2rem;
+        user-select: none;
+        margin: 1rem 0 3rem;
+    }
+    h1 {
+        font-family: $special-font-hz;
+    }
+    h2 {
+        font-family: $special-font-zm;
+    }
 
-        .toggler {
-            position: absolute;
+    .wrap {
+        display: flex;
+        justify-content: center;
+
+        .text {
+            margin-right: 2rem;
             display: flex;
-            width: 1.4rem;
-            height: 3rem;
-            align-items: center;
-            justify-content: center;
-            border-width: 1px 0 1px 1px;
-            border-style: dashed;
-            border-color: rgba(255, 255, 255, 0.2);
-            opacity: 0.5;
-            will-change: opacity;
-            transition: opacity 0.5s;
-            &:hover {
-                opacity: 1;
+            justify-content: space-between;
+            width: 7rem;
+
+            .name,
+            .pinyin {
+                writing-mode: vertical-lr;
+                font-size: 2.5rem;
+                flex: 1;
+                will-change: max-height;
+                overflow: hidden;
+                max-height: 0;
+                &.animate {
+                    transition: max-height 1s;
+                    max-height: 500px;
+                }
+            }
+            .name {
+                margin-left: $margin;
+                font-family: $special-font-hz;
+            }
+            .pinyin {
+                font-family: $special-font-zm;
             }
         }
+
+        .color {
+            padding-top: $margin;
+            font-family: $normal-font;
+            .hex,
+            .rgb {
+                margin-bottom: $margin * 2;
+                user-select: all;
+            }
+            .hex {
+                &::before {
+                    content: 'HEX: ';
+                    margin-right: $margin;
+                }
+            }
+            .rgb {
+                &::before {
+                    content: 'RGB: ';
+                    margin-right: $margin;
+                }
+            }
+        }
+    }
+}
+
+.editor {
+    transform: translateX(100%);
+    background: inherit;
+    will-change: transform;
+    transition: transform ease-in-out 0.5s;
+
+    &.open {
+        transform: translateX(0%);
     }
 }
 

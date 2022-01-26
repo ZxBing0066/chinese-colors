@@ -5,6 +5,7 @@ import colors from './colors.json';
 import ColorList from './ColorList';
 import Context from './Context';
 import Display from './Display';
+import { getFontColor } from './utils';
 
 function App() {
     const [currentColorIndex, setCurrentColorIndex] = useState(() => {
@@ -23,14 +24,16 @@ function App() {
         }
     }, []);
     const [bg, setBg] = useState('white');
+    const [fontColor, setFontColor] = useState('white');
 
     useEffect(() => {
         setBg((document.body.style.backgroundColor = currentColor.hex));
+        setFontColor(getFontColor(currentColor.hex));
     }, [currentColor.hex]);
 
     return (
         <Context.Provider value={{ handleChange }}>
-            <div className="main" style={{ backgroundColor: bg }}>
+            <div className="main" style={{ backgroundColor: bg, color: fontColor }}>
                 <ColorList currentColorIndex={currentColorIndex} />
                 <Display color={currentColor} />
             </div>

@@ -1,7 +1,7 @@
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
 import colors from './colors.json';
-import { getFontColor } from './utils';
+import designIcon from './assets/design.png';
 
 const RgbCard = memo(({ RGB }: { RGB: number[] }) => {
     return (
@@ -15,21 +15,17 @@ const RgbCard = memo(({ RGB }: { RGB: number[] }) => {
     );
 });
 
-const Editor = memo(({ color }: { color: typeof colors[number] }) => {
+const Editor = memo(({ color, open }: { color: typeof colors[number]; open: boolean }) => {
     const { name, hex, RGB, pinyin } = color;
-    const [fontColor, setFontColor] = useState('black');
 
-    return <div className="editor" style={{ color: fontColor }}></div>;
+    return <div className={'editor' + (open ? ' open' : '')}></div>;
 });
 
 const Common = memo(({ color }: { color: typeof colors[number] }) => {
     const { name, hex, RGB, pinyin } = color;
-    const [fontColor, setFontColor] = useState('black');
     const nmRef = useRef<HTMLDivElement>(null);
     const pyRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
-        setFontColor(getFontColor(hex));
-
         pyRef.current?.classList.remove('animate');
         nmRef.current?.classList.remove('animate');
         const pyT = setTimeout(() => {
@@ -45,7 +41,7 @@ const Common = memo(({ color }: { color: typeof colors[number] }) => {
     }, [color]);
 
     return (
-        <div className="common" style={{ color: fontColor }}>
+        <div className="common">
             <h1>中国色彩</h1>
             <h2>Chinese Colors</h2>
             <div className="wrap">
@@ -74,11 +70,14 @@ const Common = memo(({ color }: { color: typeof colors[number] }) => {
                             </a>
                         </p>
                         <p>
-                            <a target="_blank" href="https://igoutu.cn/icon/36895/%E8%8E%B2%E8%8A%B1">
+                            <a target="_blank" href="https://igoutu.cn/icon/36895/%E8%8E%B2%E8%8A%B1" rel="noopener">
                                 莲花
                             </a>{' '}
+                            <a target="_blank" href="https://igoutu.cn/icon/60657/%E8%AE%BE%E8%AE%A1" rel="noopener">
+                                设计
+                            </a>{' '}
                             图标源自{' '}
-                            <a target="_blank" href="https://igoutu.cn">
+                            <a target="_blank" href="https://igoutu.cn" rel="noopener">
                                 Icons8
                             </a>
                         </p>
@@ -99,10 +98,18 @@ const Common = memo(({ color }: { color: typeof colors[number] }) => {
 });
 
 const Display = ({ color }: { color: typeof colors[number] }) => {
+    const [open, setOpen] = useState(false);
+
+    const toggle = useCallback(() => {
+        setOpen(open => !open);
+    }, []);
     return (
         <div className="display">
             <Common color={color}></Common>
-            <Editor color={color}></Editor>
+            <Editor color={color} open={open}></Editor>
+            <div className="toggler" onClick={toggle}>
+                <img src={designIcon} alt="design" />
+            </div>
         </div>
     );
 };

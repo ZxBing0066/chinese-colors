@@ -2,7 +2,6 @@ import { memo, useContext, useEffect, useState } from 'react';
 
 import './style.scss';
 import colors from './colors.json';
-import { getFontColor } from './utils';
 import Context from './Context';
 
 const RGBStrip = memo(({ v, type }: { v: number; type: string }) => {
@@ -24,21 +23,13 @@ const RGBStrips = memo(({ RGB }: { RGB: number[] }) => {
 
 const ColorCard = memo(({ color, index, active }: { color: typeof colors[number]; index: number; active: boolean }) => {
     const [bg, setBg] = useState('white');
-    const [fontColor, setFontColor] = useState('black');
     const { name, hex, RGB } = color;
     const { handleChange } = useContext(Context);
     useEffect(() => {
         setBg(hex);
-        setFontColor(getFontColor(hex));
     }, [hex]);
     return (
-        <div
-            className="color-card"
-            style={{ color: fontColor }}
-            data-index={index}
-            data-active={active}
-            onClick={handleChange}
-        >
+        <div className="color-card" data-index={index} data-active={active} onClick={handleChange}>
             <div className="color-bar" style={{ background: bg }} />
             <div className="wrap">
                 <div className="name">{name}</div>

@@ -1,9 +1,15 @@
 $margin: 0.3rem;
-$special-font: 'Academy Engraved LET', 'American Typewriter', monospace, 'Xingkai SC';
-$default-font: 'Bradley Hand', 'Academy Engraved LET', 'American Typewriter', monospace, 'Weibei SC', STXingkai,
-    'KaiTi SC', STKaiTi;
+$special-font-hz: 'Xingkai SC', 'cfkai';
+$special-font-zm: 'Academy Engraved LET', 'American Typewriter', 'Bradley Hand', monospace;
+$default-font-hz: 'Weibei SC', STXingkai, 'KaiTi SC', STKaiTi, 'Xingkai SC';
+$default-font-zm: 'Bradley Hand', 'American Typewriter', monospace;
 $normal-font: monospace;
 $color-transition-duration: 1s;
+
+@font-face {
+    font-family: 'cfkai';
+    src: url('./assets/cfkai.ttf');
+}
 
 @keyframes shake {
     from {
@@ -27,7 +33,7 @@ body {
     font-size: 14px;
     text-transform: uppercase;
     min-width: 1000px;
-    font-family: $default-font;
+    font-family: $default-font-zm;
 }
 p {
     margin: 0;
@@ -71,7 +77,7 @@ body,
     .color-card {
         flex: 1 0 10rem;
         min-width: 10rem;
-        margin: 0 0 $margin * 2 $margin;
+        margin: 0 0 $margin * 2 $margin * 2;
     }
     .placeholder {
         visibility: hidden;
@@ -113,6 +119,7 @@ body,
     }
     .name {
         margin-bottom: $margin;
+        font-family: $default-font-hz;
     }
     .hex {
         margin-top: $margin;
@@ -157,9 +164,11 @@ body,
             user-select: none;
             margin: 1rem 0 3rem;
         }
-        h1,
+        h1 {
+            font-family: $special-font-hz;
+        }
         h2 {
-            font-family: $special-font;
+            font-family: $special-font-zm;
         }
 
         .wrap {
@@ -171,7 +180,6 @@ body,
                 display: flex;
                 justify-content: space-between;
                 width: 7rem;
-                font-family: $special-font;
 
                 .name,
                 .pinyin {
@@ -188,6 +196,10 @@ body,
                 }
                 .name {
                     margin-left: $margin;
+                    font-family: $special-font-hz;
+                }
+                .pinyin {
+                    font-family: $special-font-zm;
                 }
             }
 
@@ -325,7 +337,7 @@ $footer-margin: 1.5rem;
         border-radius: 50%;
         border: 3px solid rgba(255, 255, 255, 0.3);
         line-height: 1.5rem;
-        font-size: 1.2rem;
+        font-size: 1rem;
         &::before {
             content: 'i';
             font-family: monospace;

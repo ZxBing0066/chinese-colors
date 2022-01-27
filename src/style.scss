@@ -147,9 +147,9 @@ body,
         border-style: solid;
         border-color: rgba(255, 255, 255, 0.2);
         opacity: 0.5;
-        will-change: opacity;
-        transition: opacity 0.5s;
-        right: 0;
+        will-change: opacity, background;
+        transition: opacity 0.5s, background 0.5s;
+        right: -0.1rem;
         top: 50%;
         background: rgba(255, 255, 255, 0.1);
         border-radius: 0.3rem 0 0 0.3rem;
@@ -158,6 +158,10 @@ body,
             width: 1.2rem;
         }
         &:hover {
+            opacity: 1;
+        }
+        &.open {
+            background-color: rgba(255, 255, 255, 0.4);
             opacity: 1;
         }
     }
@@ -257,10 +261,101 @@ body,
     transform: translateX(100%);
     background: inherit;
     will-change: transform;
-    transition: transform ease-in-out 0.5s;
+    transition: transform cubic-bezier(0.68, -0.14, 0.15, 1.35) 0.5s;
+    font-family: $default-font-hz;
+    padding: 3rem 2rem 0;
+    .preview > *,
+    .button,
+    .line,
+    .block,
+    .link {
+        will-change: color, background-color, border-color;
+        transition: color $color-transition-duration, background-color $color-transition-duration,
+            border-color $color-transition-duration;
+    }
+    .preview > * {
+        margin-bottom: 1rem;
+    }
 
     &.open {
         transform: translateX(0%);
+    }
+
+    h1,
+    h2 {
+        text-align: center;
+    }
+    p {
+        text-indent: 2em;
+        line-height: 1.5em;
+        margin-bottom: 1rem;
+    }
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        li + li {
+            margin-top: 0.4rem;
+        }
+    }
+    .line {
+        margin: 1rem 0;
+        height: 1px;
+    }
+    .block {
+        border: 2px solid;
+        border-color: inherit;
+        padding: 1rem;
+        border-radius: 4px;
+        header {
+            text-align: center;
+        }
+    }
+    .button {
+        border: 1px solid;
+        border-radius: 2px;
+        outline: none;
+        margin: 0;
+        padding: 0 2em;
+        line-height: 2em;
+        cursor: pointer;
+    }
+    .button + .button {
+        margin-left: 1rem;
+    }
+}
+
+.editor .controls {
+    position: absolute;
+    bottom: 0;
+    left: 1rem;
+    right: 0;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    display: flex;
+}
+.control {
+    display: inline-flex;
+    align-items: center;
+}
+.control.checkbox {
+    cursor: pointer;
+    .icon {
+        border-radius: 0.2rem;
+        margin-right: 0.3rem;
+        width: 0.8rem;
+        height: 0.8rem;
+        box-sizing: border-box;
+        display: block;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+    &.checked .icon {
+        background: currentColor;
+        box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.7);
+        will-change: color, background-color, border-color;
+        transition: color $color-transition-duration, background-color $color-transition-duration,
+            border-color $color-transition-duration;
     }
 }
 
@@ -408,13 +503,21 @@ $footer-margin: 1.5rem;
     }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1280px) {
     body {
         font-size: 13px;
     }
+    .display .common h1 {
+        letter-spacing: 1rem;
+        text-indent: 1rem;
+    }
 }
-@media (max-width: 1000px) {
+@media (max-width: 1080px) {
     body {
         font-size: 12px;
+    }
+    .display .common h1 {
+        letter-spacing: initial;
+        text-indent: initial;
     }
 }

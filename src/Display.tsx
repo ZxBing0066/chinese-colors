@@ -1,7 +1,9 @@
-import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useContext, useEffect, useRef, useState } from 'react';
 
 import colors from './colors.json';
 import designIcon from './assets/design.png';
+import { getThemeColor } from './utils';
+import Context from './Context';
 
 const RgbCard = memo(({ RGB }: { RGB: number[] }) => {
     return (
@@ -17,8 +19,113 @@ const RgbCard = memo(({ RGB }: { RGB: number[] }) => {
 
 const Editor = memo(({ color, open }: { color: typeof colors[number]; open: boolean }) => {
     const { name, hex, RGB, pinyin } = color;
+    const {
+        options: { colorAsTextColor },
+        handleOptionChange
+    } = useContext(Context);
 
-    return <div className={'editor' + (open ? ' open' : '')}></div>;
+    const { textColor, textColorActive, backgroundColor, backgroundColorActive, borderColor, borderColorActive } =
+        getThemeColor(hex, colorAsTextColor);
+
+    const handleColorAsTextColor = useCallback(() => {
+        handleOptionChange('colorAsTextColor', !colorAsTextColor);
+    }, [colorAsTextColor]);
+
+    return (
+        <div
+            className={'editor' + (open ? ' open' : '')}
+            style={{
+                color: textColor,
+                borderColor
+            }}
+        >
+            <div className="preview">
+                <h1>配色生成</h1>
+                <h2>这是一段网站配色事例</h2>
+                <p>
+                    将以选择的颜色为基础生成一套网站主题配色。主要包括
+                    <b>字色、高亮紫色、背景色、块背景色、高亮背景色、边框色、高亮边框色</b>。
+                </p>
+                <p>这里将使用生成的颜色来进行展示，可通过点击标题将选择的颜色切换为字色/背景色。</p>
+                <div className="block">
+                    <header>这是一个块</header>
+                    <div className="line"></div>
+                    <ul>
+                        <li>
+                            <span className="name">颜色名称：</span>
+                            <span>{name}</span>
+                        </li>
+                        <li>
+                            <span className="name">颜色拼音：</span>
+                            <span>{pinyin}</span>
+                        </li>
+                        <li>
+                            <span className="name">hex 色值：</span>
+                            <span>{hex}</span>
+                        </li>
+                        <li>
+                            <span className="name">rgb 色值：</span>
+                            <span>rgb({RGB.join(',')})</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <button className="button background">这是一个背景按钮</button>
+                    <button className="button border">这是一个边框按钮</button>
+                </div>
+                <div>
+                    <a href="/#random" target="_blank" rel="noopener" className="link">
+                        这是一个链接
+                    </a>
+                </div>
+                <style>
+                    {`
+.editor .line {
+    background-color: ${borderColor};
+}
+.editor .block {
+    border-color: ${borderColor};
+}
+.editor .button.background {
+    border-color: ${textColor};
+    color: ${backgroundColor};
+    background-color: ${textColor};
+}
+.editor .button.background:hover {
+    border-color: ${textColorActive};
+    color: ${backgroundColorActive};
+    background-color: ${textColorActive};
+}
+.editor .button.border {
+    background: transparent;
+    color: ${textColor};
+    border-color: ${borderColor};
+}
+.editor .button.border:hover {
+    color: ${textColorActive};
+    border-color: ${borderColorActive};
+    outline: 1px solid ${textColor};
+}
+.editor .link:hover {
+    color: ${textColorActive};
+    border-color: ${borderColorActive};
+}
+.editor .link {
+    color: ${textColor};
+}
+`}
+                </style>
+            </div>
+            <div className="controls">
+                <div
+                    className={'control checkbox' + (colorAsTextColor ? ' checked' : '')}
+                    onClick={handleColorAsTextColor}
+                >
+                    <strong className="icon"></strong>选中色作为文本色
+                </div>
+            </div>
+        </div>
+    );
 });
 
 const Common = memo(({ color }: { color: typeof colors[number] }) => {
@@ -107,7 +214,7 @@ const Display = ({ color }: { color: typeof colors[number] }) => {
         <div className="display">
             <Common color={color}></Common>
             <Editor color={color} open={open}></Editor>
-            <div className="toggler" onClick={toggle}>
+            <div className={'toggler' + (open ? ' open' : '')} onClick={toggle}>
                 <img src={designIcon} alt="design" />
             </div>
         </div>

@@ -5,7 +5,8 @@ import colors from './colors.json';
 import ColorList from './ColorList';
 import Context from './Context';
 import Display from './Display';
-import { getFontColor } from './utils';
+import { getThemeColor } from './utils';
+import { OptionKey, Options, OptionValue } from './Interface';
 
 function App() {
     const [currentColorIndex, setCurrentColorIndex] = useState(() => {
@@ -24,16 +25,28 @@ function App() {
         }
     }, []);
     const [bg, setBg] = useState('white');
-    const [fontColor, setFontColor] = useState('white');
+    const [textColor, setTextColor] = useState('white');
+    const [options, setOptions] = useState<Options>(() => ({
+        colorAsTextColor: false
+    }));
+    const handleOptionChange = useCallback((optionName: OptionKey, optionValue: OptionValue) => {
+        setOptions(options => {
+            return {
+                ...options,
+                [optionName]: optionValue
+            };
+        });
+    }, []);
 
     useEffect(() => {
-        setBg((document.body.style.backgroundColor = currentColor.hex));
-        setFontColor(getFontColor(currentColor.hex));
-    }, [currentColor.hex]);
+        const { backgroundColor, textColor } = getThemeColor(currentColor.hex, options.colorAsTextColor);
+        setBg((document.body.style.backgroundColor = backgroundColor));
+        setTextColor(textColor);
+    }, [currentColor.hex, options.colorAsTextColor]);
 
     return (
-        <Context.Provider value={{ handleChange }}>
-            <div className="main" style={{ backgroundColor: bg, color: fontColor }}>
+        <Context.Provider value={{ handleChange, options, handleOptionChange }}>
+            <div className="main" style={{ backgroundColor: bg, color: textColor }}>
                 <ColorList currentColorIndex={currentColorIndex} />
                 <Display color={currentColor} />
             </div>

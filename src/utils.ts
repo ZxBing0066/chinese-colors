@@ -29,3 +29,7 @@ export const getThemeColor = (hex: string, asTextColor?: boolean) => {
         borderColorActive: Color(textColor).lighten(exponent).hex()
     };
 };
+
+export const random = (max: number) => {
+    return Math.floor(Math.random() * max);
+};

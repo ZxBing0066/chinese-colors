@@ -215,7 +215,7 @@ const Display = ({ color }: { color: typeof colors[number] }) => {
             <Common color={color}></Common>
             <Editor color={color} open={open}></Editor>
             <div className={'toggler' + (open ? ' open' : '')} onClick={toggle}>
-                <img src={designIcon} alt="design" />
+                <img src={designIcon} alt="design" width="1.2rem" height="1.2rem" />
             </div>
         </div>
     );

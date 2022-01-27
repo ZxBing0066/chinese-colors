@@ -12,7 +12,12 @@ function App() {
     const [currentColorIndex, setCurrentColorIndex] = useState(() => {
         const hashToken = location.hash.replace('#', '');
         if (!hashToken) return 7;
-        const currentColorIndex = colors.findIndex(color => color.pinyin === hashToken);
+        let currentColorIndex;
+        if (hashToken === 'random') {
+            currentColorIndex = Math.floor(Math.random() * colors.length);
+        } else {
+            currentColorIndex = colors.findIndex(color => color.pinyin === hashToken);
+        }
         return currentColorIndex >= 0 ? currentColorIndex : 7;
     });
     const currentColor = useMemo(() => colors[currentColorIndex], [currentColorIndex]);

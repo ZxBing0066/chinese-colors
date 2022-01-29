@@ -1,8 +1,6 @@
 import { ReactNode, useCallback, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
-console.log(ReactDOM);
-
 import './modal.scss';
 
 export interface ModalProps {

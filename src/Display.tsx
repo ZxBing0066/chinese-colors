@@ -188,32 +188,6 @@ const Common = memo(({ color }: { color: typeof colors[number] }) => {
                     <RgbCard RGB={RGB} />
                 </div>
             </div>
-            <div className="info">
-                <i className="icon"></i>
-                <div className="card">
-                    <div className="content">
-                        <p>
-                            颜色数据来自{' '}
-                            <a href="http://zhongguose.com/" target="_blank" rel="noopener">
-                                中国色
-                            </a>
-                        </p>
-                        <p>
-                            <a target="_blank" href="https://igoutu.cn/icon/36895/%E8%8E%B2%E8%8A%B1" rel="noopener">
-                                莲花
-                            </a>{' '}
-                            <a target="_blank" href="https://igoutu.cn/icon/60657/%E8%AE%BE%E8%AE%A1" rel="noopener">
-                                设计
-                            </a>{' '}
-                            图标源自{' '}
-                            <a target="_blank" href="https://igoutu.cn" rel="noopener">
-                                Icons8
-                            </a>
-                        </p>
-                        <i className="triangle"></i>
-                    </div>
-                </div>
-            </div>
             <footer className="footer">
                 <p>
                     Copyright © 2021 by{' '}
@@ -221,6 +195,41 @@ const Common = memo(({ color }: { color: typeof colors[number] }) => {
                         ZxBing0066
                     </a>
                 </p>
+
+                <div className="info">
+                    <i className="icon"></i>
+                    <div className="card">
+                        <div className="content">
+                            <p>
+                                颜色数据来自{' '}
+                                <a href="http://zhongguose.com/" target="_blank" rel="noopener">
+                                    中国色
+                                </a>
+                            </p>
+                            <p>
+                                <a
+                                    target="_blank"
+                                    href="https://igoutu.cn/icon/36895/%E8%8E%B2%E8%8A%B1"
+                                    rel="noopener"
+                                >
+                                    莲花
+                                </a>{' '}
+                                <a
+                                    target="_blank"
+                                    href="https://igoutu.cn/icon/60657/%E8%AE%BE%E8%AE%A1"
+                                    rel="noopener"
+                                >
+                                    设计
+                                </a>{' '}
+                                图标源自{' '}
+                                <a target="_blank" href="https://igoutu.cn" rel="noopener">
+                                    Icons8
+                                </a>
+                            </p>
+                            <i className="triangle"></i>
+                        </div>
+                    </div>
+                </div>
             </footer>
         </div>
     );

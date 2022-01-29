@@ -428,22 +428,24 @@ $footer-margin: 1.5rem;
 }
 
 .info {
-    position: absolute;
-    right: 2rem;
-    bottom: $footer-margin;
-    display: block;
+    // position: absolute;
+    // right: 2rem;
+    // bottom: $footer-margin;
+    display: inline-block;
     will-change: transform, background-color;
+    margin-left: 0.5rem;
 
     .icon {
         cursor: pointer;
         text-align: center;
         display: block;
-        width: 1.5rem;
-        height: 1.5rem;
+        width: 1rem;
+        height: 1rem;
         border-radius: 50%;
         border: 3px solid rgba(255, 255, 255, 0.3);
-        line-height: 1.5rem;
+        line-height: 1rem;
         font-size: 1rem;
+        transform: scale(0.7);
         &::before {
             content: 'i';
             font-family: monospace;
@@ -455,7 +457,7 @@ $footer-margin: 1.5rem;
 
     &:hover {
         .icon {
-            animation: 1s forwards shake;
+            // animation: 1s forwards shake;
             background-color: rgba(255, 255, 255, 0.2);
         }
         .card {
@@ -467,10 +469,10 @@ $footer-margin: 1.5rem;
     .card {
         display: none;
         position: absolute;
-        right: -1rem;
+        right: -1.3rem;
         bottom: 100%;
         white-space: nowrap;
-        padding-bottom: 1rem;
+        padding-bottom: 0.5rem;
         font-size: 0.8rem;
         will-change: transform;
         transform: rotateX(90deg);
@@ -499,6 +501,8 @@ $footer-margin: 1.5rem;
     position: absolute;
     bottom: $footer-margin;
     padding-left: 3rem;
+    display: flex;
+    align-items: center;
     a,
     a:active,
     a:visited {

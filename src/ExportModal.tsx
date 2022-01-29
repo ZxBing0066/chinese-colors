@@ -61,7 +61,7 @@ const ExportModal = ({ color, ...modalProps }: { color: string } & Omit<ModalPro
         if (message !== null) {
             t = setTimeout(() => {
                 setMessage(null);
-            }, 1000);
+            }, 2000);
         }
         return () => {
             t && clearTimeout(t);

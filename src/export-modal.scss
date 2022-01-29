@@ -1,7 +1,7 @@
 @keyframes fade-in-right {
     0% {
         opacity: 0;
-        transform: translate3d(100%, 0, 0);
+        transform: translate3d(30%, 0, 0);
     }
 
     to {
@@ -33,9 +33,10 @@
 }
 
 .copy-tip {
-    animation: fade-in-right 1.3s;
+    animation: fade-in-right 0.3s;
     font-size: 0.8rem;
     margin-right: 1rem;
+    display: inline-block;
 }
 .footer {
     text-align: right;

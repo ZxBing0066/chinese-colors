@@ -1,10 +1,4 @@
-$margin: 0.3rem;
-$special-font-hz: 'Xingkai SC', 'cfkai';
-$special-font-zm: 'Academy Engraved LET', 'American Typewriter', 'Bradley Hand', monospace;
-$default-font-hz: 'Weibei SC', STXingkai, 'KaiTi SC', STKaiTi, 'Xingkai SC';
-$default-font-zm: 'Bradley Hand', 'American Typewriter', monospace;
-$normal-font: monospace;
-$color-transition-duration: 1s;
+@import './variable.scss';
 
 @font-face {
     font-family: 'cfkai';
@@ -31,7 +25,6 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-size: 14px;
-    text-transform: uppercase;
     min-width: 1000px;
     font-family: $default-font-zm;
 }
@@ -73,6 +66,7 @@ body,
     width: 60%;
     padding: 3rem 0 1.5rem 1.5rem;
     box-sizing: border-box;
+    text-transform: uppercase;
     .placeholder,
     .color-card {
         flex: 1 0 10rem;
@@ -194,6 +188,7 @@ body,
         font-size: 2rem;
         user-select: none;
         margin: 1rem 0 3rem;
+        text-transform: uppercase;
     }
     h1 {
         font-family: $special-font-hz;
@@ -231,6 +226,7 @@ body,
             }
             .pinyin {
                 font-family: $special-font-zm;
+                text-transform: uppercase;
             }
         }
 
@@ -335,6 +331,13 @@ body,
     background-color: rgba(255, 255, 255, 0.2);
     padding: 1rem;
     display: flex;
+}
+.editor .exporter {
+    position: absolute;
+    bottom: 1rem;
+    right: 0;
+    cursor: pointer;
+    padding: 0 1rem;
 }
 .control {
     display: inline-flex;
@@ -445,7 +448,6 @@ $footer-margin: 1.5rem;
             content: 'i';
             font-family: monospace;
             font-style: normal;
-            text-transform: none;
             will-change: transform;
             transition: transform 0.5s;
         }
@@ -493,7 +495,7 @@ $footer-margin: 1.5rem;
     }
 }
 
-.footer {
+.display .footer {
     position: absolute;
     bottom: $footer-margin;
     padding-left: 3rem;

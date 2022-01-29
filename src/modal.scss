@@ -1,0 +1,93 @@
+@import './variable.scss';
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes bounce-in {
+    0%,
+    30%,
+    60%,
+    to {
+        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+
+    0% {
+        opacity: 0;
+        transform: scale3d(0.3, 0.3, 0.3);
+    }
+
+    30% {
+        opacity: 1;
+        transform: scale3d(1.03, 1.03, 1.03);
+    }
+
+    60% {
+        transform: scale3d(0.97, 0.97, 0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: hidden auto;
+    z-index: 100;
+    animation: fade-in 0.2s;
+
+    .overlay {
+        background-color: rgba(255, 255, 255, 0.4);
+        inset: 0;
+        position: absolute;
+    }
+    .body {
+        width: 600px;
+        background-color: white;
+        margin: 0 auto;
+        position: relative;
+        top: 30%;
+        animation: bounce-in 0.5s;
+        border-radius: 1rem;
+        box-sizing: border-box;
+        box-shadow: #d8d8da 1px 1px;
+        header,
+        footer {
+            padding: 1rem;
+            font-family: $default-font-hz;
+        }
+        header {
+            border-bottom: 1px solid #d8d8da;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        footer {
+            border-top: 1px solid #d8d8da;
+            font-size: 1rem;
+        }
+        .content {
+            width: 100%;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+    }
+}
+
+@media (max-width: 800px) {
+    .modal .body {
+        width: 100%;
+        bottom: 0;
+        top: auto;
+    }
+}

@@ -1,9 +1,14 @@
-import { memo, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { lazy, memo, Suspense, useCallback, useContext, useEffect, useRef, useState } from 'react';
 
 import colors from './colors.json';
 import designIcon from './assets/design.png';
 import { getThemeColor } from './utils';
 import Context from './Context';
+
+const ExportModal = lazy(() => import('./ExportModal'));
+
+// prefetch ExportModal
+import('./ExportModal');
 
 const RgbCard = memo(({ RGB }: { RGB: number[] }) => {
     return (
@@ -18,6 +23,7 @@ const RgbCard = memo(({ RGB }: { RGB: number[] }) => {
 });
 
 const Editor = memo(({ color, open }: { color: typeof colors[number]; open: boolean }) => {
+    const [modalVisible, setModalVisible] = useState(false);
     const { name, hex, RGB, pinyin } = color;
     const {
         options: { colorAsTextColor },
@@ -30,6 +36,14 @@ const Editor = memo(({ color, open }: { color: typeof colors[number]; open: bool
     const handleColorAsTextColor = useCallback(() => {
         handleOptionChange('colorAsTextColor', !colorAsTextColor);
     }, [colorAsTextColor]);
+
+    const handleModalClose = useCallback(() => {
+        setModalVisible(false);
+    }, []);
+
+    const handleExport = useCallback(() => {
+        setModalVisible(true);
+    }, []);
 
     return (
         <div
@@ -123,6 +137,14 @@ const Editor = memo(({ color, open }: { color: typeof colors[number]; open: bool
                 >
                     <strong className="icon"></strong>选中色作为文本色
                 </div>
+                <div className="exporter" onClick={handleExport}>
+                    导出
+                </div>
+                {modalVisible && (
+                    <Suspense fallback={null}>
+                        <ExportModal visible={true} onClose={handleModalClose} color={hex} />
+                    </Suspense>
+                )}
             </div>
         </div>
     );

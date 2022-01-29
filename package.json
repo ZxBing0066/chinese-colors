@@ -8,8 +8,10 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "clipboard": "^2.0.9",
     "color": "^4.2.0",
     "firebase": "^9.6.3",
+    "highlight.js": "^11.4.0",
     "normalize.css": "^8.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
@@ -21,7 +23,7 @@
     "@types/react-dom": "^17.0.10",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
-    "@vitejs/plugin-react": "^1.0.7",
+    "@vitejs/plugin-react": "^1.1.4",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.7.0",
@@ -32,7 +34,7 @@
     "prettier": "^2.5.1",
     "sass": "^1.48.0",
     "typescript": "^4.5.4",
-    "vite": "^2.7.2"
+    "vite": "^2.7.12"
   },
   "config": {
     "commitizen": {

@@ -43,7 +43,6 @@
     left: 0;
     bottom: 0;
     right: 0;
-    overflow: hidden auto;
     z-index: 100;
     animation: fade-in 0.2s;
 
@@ -52,14 +51,19 @@
         inset: 0;
         position: absolute;
     }
+    .wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        overflow: hidden auto;
+    }
     .body {
         width: 600px;
         background-color: white;
-        margin: 0 auto;
         position: relative;
-        top: 30%;
         animation: bounce-in 0.5s;
-        border-radius: 1rem;
+        border-radius: 1rem 1rem 0.5rem 0.5rem;
         box-sizing: border-box;
         box-shadow: #d8d8da 1px 1px;
         header,
@@ -88,6 +92,5 @@
     .modal .body {
         width: 100%;
         bottom: 0;
-        top: auto;
     }
 }

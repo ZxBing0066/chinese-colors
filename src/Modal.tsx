@@ -16,13 +16,28 @@ const ModalContainer = ({ children, visible, onClose, header, footer }: ModalPro
         onClose?.();
     }, []);
 
+    const handleGlobalKeyPress = useCallback((e: KeyboardEvent) => {
+        if (e.key === 'Escape' || e.code === 'Escape' || e.keyCode === 27) {
+            onClose?.();
+        }
+    }, []);
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleGlobalKeyPress);
+        return () => {
+            document.removeEventListener('keydown', handleGlobalKeyPress);
+        };
+    }, []);
+
     return (
         <div className="modal" hidden={!visible}>
             <div className="overlay" onClick={handleMaskClick}></div>
-            <div className="body">
-                <header>{header}</header>
-                <div className="content">{children}</div>
-                <footer>{footer}</footer>
+            <div className="wrap">
+                <div className="body">
+                    <header>{header}</header>
+                    <div className="content">{children}</div>
+                    <footer>{footer}</footer>
+                </div>
             </div>
         </div>
     );

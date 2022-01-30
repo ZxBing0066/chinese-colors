@@ -1,4 +1,4 @@
-import { lazy, memo, Suspense, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { lazy, memo, Suspense, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 
 import colors from './colors.json';
 import designIcon from './assets/design.png';
@@ -30,8 +30,10 @@ const Editor = memo(({ color, open }: { color: typeof colors[number]; open: bool
         handleOptionChange
     } = useContext(Context);
 
-    const { textColor, textColorActive, backgroundColor, backgroundColorActive, borderColor, borderColorActive } =
-        getThemeColor(hex, colorAsTextColor);
+    const themeColor = useMemo(() => getThemeColor(hex, colorAsTextColor), [hex, colorAsTextColor]);
+
+    const { textColor, textColorActive, backgroundColor, backgroundColorActive, lineColor, lineColorActive } =
+        themeColor;
 
     const handleColorAsTextColor = useCallback(() => {
         handleOptionChange('colorAsTextColor', !colorAsTextColor);
@@ -50,7 +52,7 @@ const Editor = memo(({ color, open }: { color: typeof colors[number]; open: bool
             className={'editor' + (open ? ' open' : '')}
             style={{
                 color: textColor,
-                borderColor
+                borderColor: lineColor
             }}
         >
             <div className="preview">
@@ -95,10 +97,10 @@ const Editor = memo(({ color, open }: { color: typeof colors[number]; open: bool
                 <style>
                     {`
 .editor .line {
-    background-color: ${borderColor};
+    background-color: ${lineColor};
 }
 .editor .block {
-    border-color: ${borderColor};
+    border-color: ${lineColor};
 }
 .editor .button.background {
     border-color: ${textColor};
@@ -113,16 +115,16 @@ const Editor = memo(({ color, open }: { color: typeof colors[number]; open: bool
 .editor .button.border {
     background: transparent;
     color: ${textColor};
-    border-color: ${borderColor};
+    border-color: ${lineColor};
 }
 .editor .button.border:hover {
     color: ${textColorActive};
-    border-color: ${borderColorActive};
+    border-color: ${lineColorActive};
     outline: 1px solid ${textColor};
 }
 .editor .link:hover {
     color: ${textColorActive};
-    border-color: ${borderColorActive};
+    border-color: ${lineColorActive};
 }
 .editor .link {
     color: ${textColor};
@@ -169,6 +171,12 @@ const Common = memo(({ color }: { color: typeof colors[number] }) => {
         };
     }, [color]);
 
+    const {
+        options: { colorAsTextColor }
+    } = useContext(Context);
+
+    const themeColor = useMemo(() => getThemeColor(hex, colorAsTextColor), [hex, colorAsTextColor]);
+
     return (
         <div className="common">
             <h1>中国色彩</h1>
@@ -188,7 +196,7 @@ const Common = memo(({ color }: { color: typeof colors[number] }) => {
                     <RgbCard RGB={RGB} />
                 </div>
             </div>
-            <footer className="footer">
+            <footer>
                 <p>
                     Copyright © 2021 by{' '}
                     <a href="https://github.com/ZxBing0066/" target="_blank" rel="noopener">
@@ -231,6 +239,23 @@ const Common = memo(({ color }: { color: typeof colors[number] }) => {
                     </div>
                 </div>
             </footer>
+            <div className="question">
+                <i className="icon"></i>
+                <div className="card">
+                    <div className="content">
+                        <h2>站点说明</h2>
+                        <p>本站用作网站设计相关的主题变量生成，可按照选择的颜色生成网页中的字色、边框色、背景色。</p>
+                        <p>
+                            使用网站右侧的 <img src={designIcon} alt="design" width="10" height="10" />{' '}
+                            可打开设计预览面板，下方可切换选项和进行颜色导出。
+                        </p>
+                        <p>
+                            使用 <kbd style={{ borderColor: themeColor.lineColor }}>space</kbd> 可随机选择颜色。
+                        </p>
+                        <i className="triangle"></i>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 });

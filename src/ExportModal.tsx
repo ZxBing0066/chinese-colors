@@ -19,8 +19,8 @@ $color-text: ${theme.textColor};
 $color-text-active: ${theme.textColorActive};
 $color-background: ${theme.backgroundColor};
 $color-background-active: ${theme.backgroundColorActive};
-$color-border: ${theme.borderColor};
-$color-border-active: ${theme.borderColorActive};
+$color-border: ${theme.lineColor};
+$color-border-active: ${theme.lineColorActive};
 `;
 };
 

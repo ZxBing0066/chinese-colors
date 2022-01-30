@@ -25,8 +25,8 @@ export const getThemeColor = (hex: string, asTextColor?: boolean) => {
         backgroundColorActive: !isDark
             ? Color(backgroundColor).lighten(exponent).hex()
             : Color(backgroundColor).darken(exponent).hex(),
-        borderColor: Color(textColor).lighten(exponent).hex(),
-        borderColorActive: Color(textColor).lighten(exponent).hex()
+        lineColor: Color(textColor).lighten(exponent).hex(),
+        lineColorActive: Color(textColor).lighten(exponent).hex()
     };
 };
 

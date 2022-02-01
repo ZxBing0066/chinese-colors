@@ -40,4 +40,13 @@
 }
 .footer {
     text-align: right;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.export-type {
+    background-color: transparent;
+    border-radius: 0.3rem;
+    border: 1px solid #b1b0b5;
 }

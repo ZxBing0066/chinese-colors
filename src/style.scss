@@ -172,6 +172,16 @@ body,
     padding: 3rem $margin * 2 0;
 }
 
+@keyframes logo {
+    0%,
+    to {
+        opacity: 1;
+    }
+    40% {
+        opacity: 0.5;
+    }
+}
+
 .common {
     h1 {
         text-align: center;
@@ -182,6 +192,14 @@ body,
         text-indent: 2rem;
         user-select: none;
         margin: 0 0 1rem;
+        position: relative;
+        .logo {
+            position: absolute;
+            top: 1.1rem;
+            left: 50%;
+            margin-left: 13rem;
+            animation: logo infinite 5s;
+        }
     }
     h2 {
         text-align: center;
@@ -563,6 +581,9 @@ $footer-margin: 1.5rem;
     .display .common h1 {
         letter-spacing: 1rem;
         text-indent: 1rem;
+        .logo {
+            margin-left: 11.5rem;
+        }
     }
 }
 @media (max-width: 1080px) {
@@ -572,6 +593,9 @@ $footer-margin: 1.5rem;
     .display .common h1 {
         letter-spacing: initial;
         text-indent: initial;
+        .logo {
+            margin-left: 10rem;
+        }
     }
 }
 

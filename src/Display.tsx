@@ -2,6 +2,7 @@ import { lazy, memo, Suspense, useCallback, useContext, useEffect, useMemo, useR
 
 import colors from './colors.json';
 import designIcon from './assets/design.png';
+import logo from './assets/logo.png';
 import { getThemeColor } from './utils';
 import Context from './Context';
 
@@ -179,7 +180,9 @@ const Common = memo(({ color }: { color: typeof colors[number] }) => {
 
     return (
         <div className="common">
-            <h1>中国色彩</h1>
+            <h1 className="title">
+                中国色彩 <img src={logo} className="logo" width={20} height={20} alt="logo" />
+            </h1>
             <h2>Chinese Colors</h2>
             <div className="wrap">
                 <div className="text">

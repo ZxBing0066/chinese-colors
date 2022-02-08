@@ -26,19 +26,29 @@ const RgbCard = memo(({ RGB }: { RGB: number[] }) => {
 const Editor = memo(({ color, open }: { color: typeof colors[number]; open: boolean }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const { name, hex, RGB, pinyin } = color;
+    const { options, handleOptionChange } = useContext(Context);
+    const { colorAsTextColor, generateType } = options;
+    const themeColor = useMemo(() => getThemeColor(hex, options), [hex, options]);
+
     const {
-        options: { colorAsTextColor },
-        handleOptionChange
-    } = useContext(Context);
-
-    const themeColor = useMemo(() => getThemeColor(hex, colorAsTextColor), [hex, colorAsTextColor]);
-
-    const { textColor, textColorActive, backgroundColor, backgroundColorActive, lineColor, lineColorActive } =
-        themeColor;
+        textColor,
+        textColorActive,
+        textColorSecondary,
+        textColorPrimary,
+        backgroundColor,
+        backgroundColorActive,
+        lineColor,
+        lineColorActive,
+        shadowColor
+    } = themeColor;
 
     const handleColorAsTextColor = useCallback(() => {
         handleOptionChange('colorAsTextColor', !colorAsTextColor);
     }, [colorAsTextColor]);
+
+    const handleGenerateType = useCallback(e => {
+        handleOptionChange('generateType', e.target.value);
+    }, []);
 
     const handleModalClose = useCallback(() => {
         setModalVisible(false);
@@ -59,9 +69,9 @@ const Editor = memo(({ color, open }: { color: typeof colors[number]; open: bool
             <div className="preview">
                 <h1>配色生成</h1>
                 <h2>这是一段网站配色事例</h2>
+                <p className="remark">这是一段备注</p>
                 <p>
-                    将以选择的颜色为基础生成一套网站主题配色。主要包括
-                    <b>字色、高亮紫色、背景色、块背景色、高亮背景色、边框色、高亮边框色</b>。
+                    将以选择的颜色为基础生成一套网站主题配色。包括<b>字色、高亮字色、背景色、边框色等</b>。
                 </p>
                 <p>这里将使用生成的颜色来进行展示，可通过点击标题将选择的颜色切换为字色/背景色。</p>
                 <div className="block">
@@ -88,7 +98,7 @@ const Editor = memo(({ color, open }: { color: typeof colors[number]; open: bool
                 </div>
                 <div>
                     <button className="button background">这是一个背景按钮</button>
-                    <button className="button border">这是一个边框按钮</button>
+                    <button className="button border">这是一个边框阴影按钮</button>
                 </div>
                 <div>
                     <a href="/#random" target="_blank" rel="noopener" className="link">
@@ -97,6 +107,12 @@ const Editor = memo(({ color, open }: { color: typeof colors[number]; open: bool
                 </div>
                 <style>
                     {`
+.preview h1 {
+    color: ${textColorPrimary};
+}
+.preview .remark {
+    color: ${textColorSecondary};
+}
 .editor .line {
     background-color: ${lineColor};
 }
@@ -121,19 +137,23 @@ const Editor = memo(({ color, open }: { color: typeof colors[number]; open: bool
 .editor .button.border:hover {
     color: ${textColorActive};
     border-color: ${lineColorActive};
-    outline: 1px solid ${textColor};
-}
-.editor .link:hover {
-    color: ${textColorActive};
-    border-color: ${lineColorActive};
+    box-shadow: 0 0 3px 2px ${shadowColor};
 }
 .editor .link {
     color: ${textColor};
+}
+.editor .link:hover {
+    color: ${textColorActive};
 }
 `}
                 </style>
             </div>
             <div className="controls">
+                <select className="control" value={generateType} onChange={handleGenerateType}>
+                    <option value="mix">混色</option>
+                    <option value="blackWhite">黑白</option>
+                    <option value="negate">反转</option>
+                </select>
                 <div
                     className={'control checkbox' + (colorAsTextColor ? ' checked' : '')}
                     onClick={handleColorAsTextColor}
@@ -172,11 +192,9 @@ const Common = memo(({ color }: { color: typeof colors[number] }) => {
         };
     }, [color]);
 
-    const {
-        options: { colorAsTextColor }
-    } = useContext(Context);
+    const { options } = useContext(Context);
 
-    const themeColor = useMemo(() => getThemeColor(hex, colorAsTextColor), [hex, colorAsTextColor]);
+    const themeColor = useMemo(() => getThemeColor(hex, options), [hex, options]);
 
     return (
         <div className="common">

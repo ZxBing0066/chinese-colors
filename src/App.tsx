@@ -45,7 +45,8 @@ function App() {
     const [bg, setBg] = useState('white');
     const [textColor, setTextColor] = useState('white');
     const [options, setOptions] = useState<Options>(() => ({
-        colorAsTextColor: false
+        colorAsTextColor: false,
+        generateType: 'mix'
     }));
     const handleOptionChange = useCallback((optionName: OptionKey, optionValue: OptionValue) => {
         setOptions(options => {
@@ -61,10 +62,10 @@ function App() {
     }, []);
 
     useEffect(() => {
-        const { backgroundColor, textColor } = getThemeColor(currentColor.hex, options.colorAsTextColor);
+        const { backgroundColor, textColor } = getThemeColor(currentColor.hex, options);
         setBg((document.body.style.backgroundColor = backgroundColor));
         setTextColor(textColor);
-    }, [currentColor.hex, options.colorAsTextColor]);
+    }, [currentColor.hex, options]);
 
     const randomColor = useCallback((e: KeyboardEvent) => {
         if (e.key === 'Spacebar' || e.key === ' ' || e.keyCode === 32) {

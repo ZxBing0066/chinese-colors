@@ -16,31 +16,37 @@ hljs.registerLanguage('css', css);
 
 const themeToScss = (theme: ReturnType<typeof getThemeColor>, hex: string, options: Options) => {
     return `// Generate by https://chinese-colors.heyfe.org/
-// Primary color: ${hex}, colorAsTextColor: ${!!options.colorAsTextColor}
+// Brand color: ${hex}, colorAsTextColor: ${!!options.colorAsTextColor}, type: ${options.generateType}
 $color-text: ${theme.textColor};
 $color-text-active: ${theme.textColorActive};
+$color-text-primary: ${theme.textColorPrimary};
+$color-text-secondary: ${theme.textColorSecondary};
 $color-background: ${theme.backgroundColor};
 $color-background-active: ${theme.backgroundColorActive};
 $color-border: ${theme.lineColor};
 $color-border-active: ${theme.lineColorActive};
+$color-shadow: ${theme.shadowColor};
 `;
 };
 
 const themeToCss = (theme: ReturnType<typeof getThemeColor>, hex: string, options: Options) => {
     return `/* Generate by https://chinese-colors.heyfe.org/ */
-/* Primary color: ${hex}, colorAsTextColor: ${!!options.colorAsTextColor} */
+/* Brand color: ${hex}, colorAsTextColor: ${!!options.colorAsTextColor}, type: ${options.generateType} */
 --color-text: ${theme.textColor};
 --color-text-active: ${theme.textColorActive};
+--color-text-primary: ${theme.textColorPrimary};
+--color-text-secondary: ${theme.textColorSecondary};
 --color-background: ${theme.backgroundColor};
 --color-background-active: ${theme.backgroundColorActive};
 --color-border: ${theme.lineColor};
 --color-border-active: ${theme.lineColorActive};
+--color-shadow: ${theme.shadowColor};
 `;
 };
 
 const ExportModal = ({ color, ...modalProps }: { color: string } & Omit<ModalProps, 'children'>) => {
     const { options } = useContext(Context);
-    const theme = useMemo(() => getThemeColor(color), [color]);
+    const theme = useMemo(() => getThemeColor(color, options), [color]);
     const [type, setType] = useState('scss');
     const [message, setMessage] = useState<boolean | null>(null);
     const exportContent = useMemo(

@@ -284,9 +284,9 @@ body,
     .line,
     .block,
     .link {
-        will-change: color, background-color, border-color;
+        will-change: color, background-color, border-color, box-shadow;
         transition: color $color-transition-duration, background-color $color-transition-duration,
-            border-color $color-transition-duration;
+            border-color $color-transition-duration, box-shadow $color-transition-duration;
     }
     .preview > * {
         margin-bottom: 1rem;
@@ -360,6 +360,15 @@ body,
 .control {
     display: inline-flex;
     align-items: center;
+}
+.control + .control {
+    margin-left: 1rem;
+}
+select.control {
+    background-color: transparent;
+    border-radius: 0.3rem;
+    border-color: rgba(0, 0, 0, 0.4);
+    color: inherit;
 }
 .control.checkbox {
     cursor: pointer;

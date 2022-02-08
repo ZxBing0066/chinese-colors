@@ -11,7 +11,7 @@ const Context = createContext<{
     handleOptionChange: (optionName: OptionKey, optionValue: OptionValue) => void;
 }>({
     handleChange: noop,
-    options: { colorAsTextColor: false },
+    options: { colorAsTextColor: false, generateType: 'mix' },
     handleOptionChange: noop
 });
 

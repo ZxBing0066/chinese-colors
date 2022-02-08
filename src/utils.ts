@@ -10,6 +10,12 @@ const mixWeight = 0.3;
 const contrastValid = (textColor: string, backgroundColor: string) =>
     Color(textColor).contrast(Color(backgroundColor)) < 4.6;
 
+const rotate = (hex: string, asTextColor?: boolean) => {
+    const color = Color(hex);
+    const contrastColor = color.rotate(30);
+    return asTextColor ? [hex, contrastColor] : [contrastColor, hex];
+};
+
 const mix = (hex: string, asTextColor?: boolean) => {
     let contrastColor;
     const color = Color(hex);
@@ -23,7 +29,6 @@ const mix = (hex: string, asTextColor?: boolean) => {
         contrastColor !== '#000000'
     ) {
         contrastColor = Color(contrastColor)[isDark ? 'lighten' : 'darken'](0.1).hex();
-        console.log(contrastColor);
     }
     return asTextColor ? [hex, contrastColor] : [contrastColor, hex];
 };

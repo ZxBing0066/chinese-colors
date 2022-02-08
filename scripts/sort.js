@@ -12,4 +12,8 @@ const colors = _colors.sort((a, b) => {
     return colorB.hue() - colorA.hue() || colorB.saturationv() - colorA.saturationv();
 });
 
+colors.forEach(color => {
+    delete color.CMYK;
+});
+
 fs.writeFileSync(outputPath, JSON.stringify(colors, null, 4));

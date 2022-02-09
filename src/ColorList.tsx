@@ -3,6 +3,7 @@ import { memo, useContext, useEffect, useState } from 'react';
 import './style.scss';
 import colors from './colors.json';
 import Context from './Context';
+import { TColor } from './Interface';
 
 const RGBStrip = memo(({ v, type }: { v: number; type: string }) => {
     return (
@@ -21,7 +22,7 @@ const RGBStrips = memo(({ RGB }: { RGB: number[] }) => {
     );
 });
 
-const ColorCard = memo(({ color, index, active }: { color: typeof colors[number]; index: number; active: boolean }) => {
+const ColorCard = memo(({ color, index, active }: { color: TColor; index: number; active: boolean }) => {
     const [bg, setBg] = useState('white');
     const { name, hex, RGB } = color;
     const { handleChange } = useContext(Context);

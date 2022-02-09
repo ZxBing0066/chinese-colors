@@ -10,4 +10,4 @@ export interface Options {
 export type OptionKey = keyof Options;
 export type OptionValue = Options[OptionKey];
 
-export type Color = typeof colors[number];
+export type TColor = typeof colors[number];

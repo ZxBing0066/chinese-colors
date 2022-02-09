@@ -5,6 +5,7 @@ import designIcon from './assets/design.png';
 import logo from './assets/logo.png';
 import { getThemeColor } from './utils';
 import Context from './Context';
+import { TColor } from './Interface';
 
 const ExportModal = lazy(() => import('./ExportModal'));
 
@@ -23,7 +24,7 @@ const RgbCard = memo(({ RGB }: { RGB: number[] }) => {
     );
 });
 
-const Editor = memo(({ color, open }: { color: typeof colors[number]; open: boolean }) => {
+const Editor = memo(({ color, open }: { color: TColor; open: boolean }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const { name, hex, RGB, pinyin } = color;
     const { options, handleOptionChange } = useContext(Context);
@@ -173,7 +174,7 @@ const Editor = memo(({ color, open }: { color: typeof colors[number]; open: bool
     );
 });
 
-const Common = memo(({ color }: { color: typeof colors[number] }) => {
+const Common = memo(({ color }: { color: TColor }) => {
     const { name, hex, RGB, pinyin } = color;
     const nmRef = useRef<HTMLDivElement>(null);
     const pyRef = useRef<HTMLDivElement>(null);
@@ -281,7 +282,7 @@ const Common = memo(({ color }: { color: typeof colors[number] }) => {
     );
 });
 
-const Display = ({ color }: { color: typeof colors[number] }) => {
+const Display = ({ color }: { color: TColor }) => {
     const [open, setOpen] = useState(false);
 
     const toggle = useCallback(() => {

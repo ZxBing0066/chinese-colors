@@ -46,12 +46,9 @@ const ColorList = memo(({ currentColorIndex }: { currentColorIndex: number }) =>
             {colors.map((color, i) => (
                 <ColorCard color={color} index={i} key={i} active={currentColorIndex === i} />
             ))}
-            <div className="placeholder"></div>
-            <div className="placeholder"></div>
-            <div className="placeholder"></div>
-            <div className="placeholder"></div>
-            <div className="placeholder"></div>
-            <div className="placeholder"></div>
+            {new Array(10).fill(null).map((v, i) => (
+                <div className="placeholder" key={i}></div>
+            ))}
         </div>
     );
 });

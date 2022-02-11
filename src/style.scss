@@ -35,7 +35,7 @@ body {
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size: 14px;
+    font-size: 16px;
     min-width: 1000px;
     font-family: $default-font-zm;
 }
@@ -599,7 +599,7 @@ $footer-margin: 1.5rem;
 
 @media (max-width: 1280px) {
     body {
-        font-size: 13px;
+        font-size: 15px;
     }
     .display .common h1 {
         letter-spacing: 1rem;
@@ -611,7 +611,7 @@ $footer-margin: 1.5rem;
 }
 @media (max-width: 1080px) {
     body {
-        font-size: 12px;
+        font-size: 14px;
     }
     .display .common h1 {
         letter-spacing: initial;

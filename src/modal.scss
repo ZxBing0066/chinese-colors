@@ -37,6 +37,8 @@
     }
 }
 
+$border-color: #d8d8da;
+
 .modal {
     position: fixed;
     top: 0;
@@ -47,7 +49,7 @@
     animation: fade-in 0.2s;
 
     .overlay {
-        background-color: rgba(255, 255, 255, 0.4);
+        background-color: rgba(0, 0, 0, 0.2);
         inset: 0;
         position: absolute;
     }
@@ -60,24 +62,24 @@
     }
     .body {
         width: 600px;
-        background-color: white;
+        background-color: rgba(255, 255, 255, 0.95);
         position: relative;
         animation: bounce-in 0.5s;
-        border-radius: 1rem 1rem 0.5rem 0.5rem;
+        border-radius: 0.3rem;
         box-sizing: border-box;
-        box-shadow: #d8d8da 1px 1px;
+        box-shadow: $border-color 0px 0px 10px 0px;
         header,
         footer {
             padding: 1rem;
             font-family: $default-font-hz;
         }
         header {
-            border-bottom: 1px solid #d8d8da;
+            border-bottom: 1px solid $border-color;
             text-align: center;
             font-size: 1.1rem;
         }
         footer {
-            border-top: 1px solid #d8d8da;
+            border-top: 1px solid $border-color;
             font-size: 1rem;
         }
         .content {

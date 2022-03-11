@@ -202,85 +202,91 @@ const Common = memo(({ color }: { color: TColor }) => {
 
     return (
         <div className="common">
-            <h1 className="title">
-                中国色彩 <img src={logo} className="logo" width={20} height={20} alt="logo" />
-            </h1>
-            <h2>Chinese Colors</h2>
-            <div className="wrap">
-                <div className="text">
-                    <div className="pinyin" ref={pyRef}>
-                        {pinyin}
+            <div className="content">
+                <h1 className="title">
+                    中国色彩 <img src={logo} className="logo" width={20} height={20} alt="logo" />
+                </h1>
+                <h2>Chinese Colors</h2>
+                <div className="wrap">
+                    <div className="text">
+                        <div className="pinyin" ref={pyRef}>
+                            {pinyin}
+                        </div>
+                        <div className="name" ref={nmRef}>
+                            {name}
+                        </div>
                     </div>
-                    <div className="name" ref={nmRef}>
-                        {name}
+                    <div className="color">
+                        <div className="hex">{hex}</div>
+                        <div className="rgb">rgb({RGB.join(',')})</div>
+                        <RgbCard RGB={RGB} />
                     </div>
-                </div>
-                <div className="color">
-                    <div className="hex">{hex}</div>
-                    <div className="rgb">rgb({RGB.join(',')})</div>
-                    <RgbCard RGB={RGB} />
                 </div>
             </div>
-            <footer>
-                <p>
-                    Copyright © 2021 by{' '}
-                    <a href="https://github.com/ZxBing0066/" target="_blank" rel="noopener">
-                        ZxBing0066
-                    </a>
-                </p>
+            <footer className="footer">
+                <div className="copyright">
+                    <p>
+                        Copyright © 2021 by{' '}
+                        <a href="https://github.com/ZxBing0066/" target="_blank" rel="noopener">
+                            ZxBing0066
+                        </a>
+                    </p>
 
-                <div className="info">
+                    <div className="info">
+                        <i className="icon"></i>
+                        <div className="card">
+                            <div className="content">
+                                <p>
+                                    颜色数据来自{' '}
+                                    <a href="http://zhongguose.com/" target="_blank" rel="noopener">
+                                        中国色
+                                    </a>
+                                </p>
+                                <p>
+                                    <a
+                                        target="_blank"
+                                        href="https://igoutu.cn/icon/36895/%E8%8E%B2%E8%8A%B1"
+                                        rel="noopener"
+                                    >
+                                        莲花
+                                    </a>{' '}
+                                    <a
+                                        target="_blank"
+                                        href="https://igoutu.cn/icon/60657/%E8%AE%BE%E8%AE%A1"
+                                        rel="noopener"
+                                    >
+                                        设计
+                                    </a>{' '}
+                                    图标源自{' '}
+                                    <a target="_blank" href="https://igoutu.cn" rel="noopener">
+                                        Icons8
+                                    </a>
+                                </p>
+                                <i className="triangle"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="question">
                     <i className="icon"></i>
                     <div className="card">
                         <div className="content">
+                            <h2>站点说明</h2>
                             <p>
-                                颜色数据来自{' '}
-                                <a href="http://zhongguose.com/" target="_blank" rel="noopener">
-                                    中国色
-                                </a>
+                                本站用作网站设计相关的主题变量生成，可按照选择的颜色生成网页中的字色、边框色、背景色。
                             </p>
                             <p>
-                                <a
-                                    target="_blank"
-                                    href="https://igoutu.cn/icon/36895/%E8%8E%B2%E8%8A%B1"
-                                    rel="noopener"
-                                >
-                                    莲花
-                                </a>{' '}
-                                <a
-                                    target="_blank"
-                                    href="https://igoutu.cn/icon/60657/%E8%AE%BE%E8%AE%A1"
-                                    rel="noopener"
-                                >
-                                    设计
-                                </a>{' '}
-                                图标源自{' '}
-                                <a target="_blank" href="https://igoutu.cn" rel="noopener">
-                                    Icons8
-                                </a>
+                                使用网站右侧的 <img src={designIcon} alt="design" width="10" height="10" />{' '}
+                                可打开设计预览面板，下方可切换选项和进行颜色导出。
+                            </p>
+                            <p>
+                                使用 <kbd style={{ borderColor: themeColor.lineColor }}>space</kbd> 可随机选择颜色。
                             </p>
                             <i className="triangle"></i>
                         </div>
                     </div>
                 </div>
             </footer>
-            <div className="question">
-                <i className="icon"></i>
-                <div className="card">
-                    <div className="content">
-                        <h2>站点说明</h2>
-                        <p>本站用作网站设计相关的主题变量生成，可按照选择的颜色生成网页中的字色、边框色、背景色。</p>
-                        <p>
-                            使用网站右侧的 <img src={designIcon} alt="design" width="10" height="10" />{' '}
-                            可打开设计预览面板，下方可切换选项和进行颜色导出。
-                        </p>
-                        <p>
-                            使用 <kbd style={{ borderColor: themeColor.lineColor }}>space</kbd> 可随机选择颜色。
-                        </p>
-                        <i className="triangle"></i>
-                    </div>
-                </div>
-            </div>
         </div>
     );
 });

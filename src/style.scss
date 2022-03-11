@@ -183,6 +183,9 @@ body,
     right: 0;
     bottom: 0;
     padding: 3rem $margin * 2 0;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
 }
 
 @keyframes logo {
@@ -196,6 +199,9 @@ body,
 }
 
 .common {
+    .content {
+        flex: 1 0;
+    }
     h1 {
         text-align: center;
         font-size: 5rem;
@@ -294,6 +300,7 @@ body,
     background-image: url(./texture.png);
     .preview {
         padding-right: 2rem;
+        flex: 1 0;
     }
     .preview > *,
     .button,
@@ -534,15 +541,16 @@ $footer-margin: 1.5rem;
     }
 }
 
+.copyright {
+    display: flex;
+}
+
 .info {
     .icon {
         transform: scale(0.7);
     }
 }
 .question {
-    position: absolute;
-    right: 2rem;
-    bottom: $footer-margin;
     .icon {
         width: 1.2rem;
         height: 1.2rem;
@@ -584,12 +592,13 @@ $footer-margin: 1.5rem;
     }
 }
 
-.display footer {
-    position: absolute;
-    bottom: $footer-margin;
-    padding-left: 3rem;
+.display .footer {
+    position: sticky;
+    bottom: 0;
+    padding: 2rem;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     a,
     a:active,
     a:visited {

@@ -64,7 +64,8 @@ const Editor = memo(({ color, open }: { color: TColor; open: boolean }) => {
             className={'editor' + (open ? ' open' : '')}
             style={{
                 color: textColor,
-                borderColor: lineColor
+                borderColor: lineColor,
+                backgroundColor: backgroundColor
             }}
         >
             <div className="preview">
@@ -99,6 +100,8 @@ const Editor = memo(({ color, open }: { color: TColor; open: boolean }) => {
                 </div>
                 <div>
                     <button className="button background">这是一个背景按钮</button>
+                </div>
+                <div>
                     <button className="button border">这是一个边框阴影按钮</button>
                 </div>
                 <div>

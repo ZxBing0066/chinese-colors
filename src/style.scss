@@ -140,7 +140,6 @@ body,
     width: 40%;
     height: 100%;
     overflow: hidden;
-    background: inherit;
 
     .toggler {
         position: absolute;
@@ -288,11 +287,14 @@ body,
 
 .editor {
     transform: translateX(100%);
-    background: inherit;
-    will-change: transform;
-    transition: transform cubic-bezier(0.68, -0.14, 0.15, 1.35) 0.5s;
+    will-change: transform, background;
+    transition: transform cubic-bezier(0.68, -0.14, 0.15, 1.35) 0.5s, background $color-transition-duration;
     font-family: $default-font-hz;
-    padding: 3rem 2rem 0;
+    padding: 3rem 0 0 2em;
+    background-image: url(./texture.png);
+    .preview {
+        padding-right: 2rem;
+    }
     .preview > *,
     .button,
     .line,
@@ -355,10 +357,8 @@ body,
 }
 
 .editor .controls {
-    position: absolute;
+    position: sticky;
     bottom: 0;
-    left: 1rem;
-    right: 0;
     margin: 0;
     background-color: rgba(255, 255, 255, 0.2);
     padding: 1rem;

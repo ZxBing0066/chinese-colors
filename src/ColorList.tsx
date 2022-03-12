@@ -31,20 +31,20 @@ const ColorCard = memo(({ color, index, active }: { color: TColor; index: number
     useEffect(() => {
         setBg(hex);
     }, [hex]);
-    const [fav, setFav] = useState(() => favStorage.get(name));
+    const [fav, setFav] = useState(() => favStorage.get(hex));
     const handleHeart = useCallback(
         (e: MouseEvent) => {
             e.stopPropagation();
             setFav(fav => {
                 if (fav) {
-                    favStorage.remove(name);
+                    favStorage.remove(hex);
                 } else {
-                    favStorage.add(name);
+                    favStorage.add(hex);
                 }
-                return favStorage.get(name);
+                return favStorage.get(hex);
             });
         },
-        [name]
+        [hex]
     );
 
     return (

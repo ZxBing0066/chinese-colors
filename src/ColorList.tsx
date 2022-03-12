@@ -1,9 +1,11 @@
-import { memo, useContext, useEffect, useState } from 'react';
+import { memo, useCallback, useContext, useEffect, useState, MouseEvent } from 'react';
 
 import './style.scss';
 import colors from './colors.json';
 import Context from './Context';
 import { TColor } from './Interface';
+import Heart from './icons/Heart';
+import { favStorage } from './utils';
 
 const RGBStrip = memo(({ v, type }: { v: number; type: string }) => {
     return (
@@ -29,8 +31,30 @@ const ColorCard = memo(({ color, index, active }: { color: TColor; index: number
     useEffect(() => {
         setBg(hex);
     }, [hex]);
+    const [fav, setFav] = useState(() => favStorage.get(name));
+    const handleHeart = useCallback(
+        (e: MouseEvent) => {
+            e.stopPropagation();
+            setFav(fav => {
+                if (fav) {
+                    favStorage.remove(name);
+                } else {
+                    favStorage.add(name);
+                }
+                return favStorage.get(name);
+            });
+        },
+        [name]
+    );
+
     return (
-        <div className="color-card" data-index={index} data-active={active} onClick={handleChange}>
+        <div
+            className={'color-card' + (fav ? ' fav' : '')}
+            data-index={index}
+            data-active={active}
+            onClick={handleChange}
+        >
+            <Heart className="heart" onClick={handleHeart} _fill={fav} />
             <div className="color-bar" style={{ background: bg }} />
             <div className="wrap">
                 <div className="name">{name}</div>

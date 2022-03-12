@@ -115,3 +115,31 @@ export const getThemeColor = (hex: string, options: Options) => {
 };
 
 export const random = (max: number) => Math.floor(Math.random() * max);
+
+export const exportCSS = (hex: string, options: Options) => {
+    const a = 1;
+};
+
+const FAV_LOCAL_KEY = '__FAV__';
+
+export const favStorage = (() => {
+    const favs = localStorage.getItem(FAV_LOCAL_KEY)?.split(',') || [];
+    const favMap = new Map(favs.map(fav => [fav, true]));
+    const updateStorage = () => localStorage.setItem(FAV_LOCAL_KEY, [...favMap.keys()].join(','));
+    const add = (name: string) => {
+        favMap.set(name, true);
+        updateStorage();
+    };
+    const remove = (name: string) => {
+        favMap.delete(name);
+        updateStorage();
+    };
+    const get = (name: string) => {
+        return favMap.has(name);
+    };
+    return {
+        add,
+        remove,
+        get
+    };
+})();

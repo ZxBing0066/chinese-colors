@@ -100,6 +100,7 @@ body,
     justify-items: center;
     background-color: rgba(255, 255, 255, 0.3);
     color: rgba(0, 0, 0, 0.7);
+    position: relative;
     cursor: pointer;
 
     will-change: background, opacity;
@@ -111,8 +112,33 @@ body,
 
     &:hover {
         opacity: 0.6;
+        .heart {
+            display: initial;
+        }
     }
 
+    &.fav {
+        order: -1;
+        .heart {
+            display: initial;
+        }
+    }
+    .heart {
+        position: absolute;
+        top: 0.2rem;
+        right: 0.2rem;
+        width: 1rem;
+        display: none;
+        opacity: 0.7;
+        transform: scale(0.8);
+        transition: opacity 0.2s, transform 0.2s cubic-bezier(0.87, -0.09, 0.17, 2.51);
+        fill: #ee3f4d;
+
+        &:hover {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
     .wrap {
         padding: $margin;
     }

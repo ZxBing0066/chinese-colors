@@ -1,11 +1,10 @@
 import { lazy, memo, Suspense, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 
-import colors from './colors.json';
-import designIcon from './assets/design.png';
 import logo from './assets/logo.png';
 import { getThemeColor } from './utils';
 import Context from './Context';
 import { TColor } from './Interface';
+import Design from './icons/Design';
 
 const ExportModal = lazy(() => import('./ExportModal'));
 
@@ -250,13 +249,6 @@ const Common = memo(({ color }: { color: TColor }) => {
                                     >
                                         莲花
                                     </a>{' '}
-                                    <a
-                                        target="_blank"
-                                        href="https://igoutu.cn/icon/60657/%E8%AE%BE%E8%AE%A1"
-                                        rel="noopener"
-                                    >
-                                        设计
-                                    </a>{' '}
                                     图标源自{' '}
                                     <a target="_blank" href="https://igoutu.cn" rel="noopener">
                                         Icons8
@@ -276,8 +268,7 @@ const Common = memo(({ color }: { color: TColor }) => {
                                 本站用作网站设计相关的主题变量生成，可按照选择的颜色生成网页中的字色、边框色、背景色。
                             </p>
                             <p>
-                                使用网站右侧的 <img src={designIcon} alt="design" width="10" height="10" />{' '}
-                                可打开设计预览面板，下方可切换选项和进行颜色导出。
+                                使用网站右侧的 <Design /> 可打开设计预览面板，下方可切换选项和进行颜色导出。
                             </p>
                             <p>
                                 使用 <kbd style={{ borderColor: themeColor.lineColor }}>space</kbd> 可随机选择颜色。
@@ -291,9 +282,11 @@ const Common = memo(({ color }: { color: TColor }) => {
     );
 });
 
-const Display = ({ color }: { color: TColor }) => {
+const Display = memo(({ color }: { color: TColor }) => {
     const [open, setOpen] = useState(false);
-
+    const { options } = useContext(Context);
+    const { hex } = color;
+    const themeColor = useMemo(() => getThemeColor(hex, options), [hex, options]);
     const toggle = useCallback(() => {
         setOpen(open => !open);
     }, []);
@@ -301,11 +294,15 @@ const Display = ({ color }: { color: TColor }) => {
         <div className="display">
             <Common color={color}></Common>
             <Editor color={color} open={open}></Editor>
-            <div className={'toggler' + (open ? ' open' : '')} onClick={toggle}>
-                <img src={designIcon} alt="design" width="20" height="20" />
+            <div
+                className={'toggler' + (open ? ' open' : '')}
+                style={{ borderColor: themeColor.lineColor }}
+                onClick={toggle}
+            >
+                <Design className="icon" fill={themeColor.textColor} />
             </div>
         </div>
     );
-};
+});
 
 export default Display;

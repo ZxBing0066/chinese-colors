@@ -14,6 +14,7 @@ const RGBStrip = memo(({ v, type }: { v: number; type: string }) => {
         </div>
     );
 });
+
 const RGBStrips = memo(({ RGB }: { RGB: number[] }) => {
     return (
         <div className="rgb-strips">

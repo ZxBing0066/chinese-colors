@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import hljs from 'highlight.js/lib/core';
 import scss from 'highlight.js/lib/languages/scss';
 import css from 'highlight.js/lib/languages/css';
@@ -44,7 +44,7 @@ const themeToCss = (theme: ReturnType<typeof getThemeColor>, hex: string, option
 `;
 };
 
-const ExportModal = ({ color, ...modalProps }: { color: string } & Omit<ModalProps, 'children'>) => {
+const ExportModal = memo(({ color, ...modalProps }: { color: string } & Omit<ModalProps, 'children'>) => {
     const { options } = useContext(Context);
     const theme = useMemo(() => getThemeColor(color, options), [color]);
     const [type, setType] = useState('scss');
@@ -124,6 +124,6 @@ const ExportModal = ({ color, ...modalProps }: { color: string } & Omit<ModalPro
             </div>
         </Modal>
     );
-};
+});
 
 export default ExportModal;

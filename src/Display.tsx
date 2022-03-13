@@ -27,7 +27,7 @@ const Editor = memo(({ color, open }: { color: TColor; open: boolean }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const { name, hex, RGB, pinyin } = color;
     const { options, handleOptionChange } = useContext(Context);
-    const { colorAsTextColor, generateType } = options;
+    const { colorAsTextColor, generateType, simpleDesign } = options;
     const themeColor = useMemo(() => getThemeColor(hex, options), [hex, options]);
 
     const {
@@ -45,6 +45,10 @@ const Editor = memo(({ color, open }: { color: TColor; open: boolean }) => {
     const handleColorAsTextColor = useCallback(() => {
         handleOptionChange('colorAsTextColor', !colorAsTextColor);
     }, [colorAsTextColor]);
+
+    const handleSimpleDesign = useCallback(() => {
+        handleOptionChange('simpleDesign', !simpleDesign);
+    }, [simpleDesign]);
 
     const handleGenerateType = useCallback(e => {
         handleOptionChange('generateType', e.target.value);
@@ -75,6 +79,9 @@ const Editor = memo(({ color, open }: { color: TColor; open: boolean }) => {
                     将以选择的颜色为基础生成一套网站主题配色。包括<b>字色、高亮字色、背景色、边框色等</b>。
                 </p>
                 <p>这里将使用生成的颜色来进行展示，可通过点击标题将选择的颜色切换为字色/背景色。</p>
+                <p>
+                    这是一段内联代码展示 <code>Hello world</code> 这是一段内联代码展示。
+                </p>
                 <div className="block">
                     <header>这是一个块</header>
                     <div className="line"></div>
@@ -97,6 +104,7 @@ const Editor = memo(({ color, open }: { color: TColor; open: boolean }) => {
                         </li>
                     </ul>
                 </div>
+                <blockquote>这是一段引用文字。</blockquote>
                 <div>
                     <button className="button background">这是一个背景按钮</button>
                 </div>
@@ -116,37 +124,53 @@ const Editor = memo(({ color, open }: { color: TColor; open: boolean }) => {
 .preview .remark {
     color: ${textColorSecondary};
 }
-.editor .line {
+.preview .line {
     background-color: ${lineColor};
 }
-.editor .block {
+.preview .block {
     border-color: ${lineColor};
 }
-.editor .button.background {
+.preview .button.background {
     border-color: ${textColor};
     color: ${backgroundColor};
     background-color: ${textColor};
 }
-.editor .button.background:hover {
+.preview .button.background:hover {
     border-color: ${textColorActive};
     color: ${backgroundColorActive};
     background-color: ${textColorActive};
 }
-.editor .button.border {
+.preview .button.border {
     background: transparent;
     color: ${textColor};
     border-color: ${lineColor};
 }
-.editor .button.border:hover {
+.preview .button.border:hover {
     color: ${textColorActive};
     border-color: ${lineColorActive};
     box-shadow: 0 0 3px 2px ${shadowColor};
 }
-.editor .link {
+.preview .link {
     color: ${textColor};
+    text-decoration: none;
 }
-.editor .link:hover {
+.preview .link:hover {
     color: ${textColorActive};
+    text-decoration: underline;
+}
+.preview blockquote {
+    background-color: ${backgroundColorActive};
+    border-color: ${lineColor};
+    border-left: 3px solid;
+    margin: 0 0 1rem 0;
+    padding: 0.75rem 1.5rem;
+}
+.preview code {
+    color: ${textColorPrimary};
+    background: ${backgroundColorActive};
+    padding: .2em .5em;
+    border-radius: .3em;
+    border: 1px solid ${lineColorActive};
 }
 `}
                 </style>
@@ -157,11 +181,16 @@ const Editor = memo(({ color, open }: { color: TColor; open: boolean }) => {
                     <option value="blackWhite">黑白</option>
                     <option value="negate">反转</option>
                 </select>
+                {/* <div className={'control checkbox' + (simpleDesign ? ' checked' : '')} onClick={handleSimpleDesign}>
+                    <strong className="icon" />
+                    素朴配色
+                </div> */}
                 <div
                     className={'control checkbox' + (colorAsTextColor ? ' checked' : '')}
                     onClick={handleColorAsTextColor}
                 >
-                    <strong className="icon"></strong>选中色作为文本色
+                    <strong className="icon" />
+                    选中色作为文本色
                 </div>
                 <div className="exporter" onClick={handleExport}>
                     导出
@@ -268,7 +297,8 @@ const Common = memo(({ color }: { color: TColor }) => {
                                 本站用作网站设计相关的主题变量生成，可按照选择的颜色生成网页中的字色、边框色、背景色。
                             </p>
                             <p>
-                                使用网站右侧的 <Design /> 可打开设计预览面板，下方可切换选项和进行颜色导出。
+                                使用网站右侧的 <Design style={{ height: '.8em', fill: 'currentColor' }} />{' '}
+                                可打开设计预览面板，下方可切换选项和进行颜色导出。
                             </p>
                             <p>
                                 使用 <kbd style={{ borderColor: themeColor.lineColor }}>space</kbd> 可随机选择颜色。

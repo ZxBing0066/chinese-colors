@@ -5,6 +5,7 @@ export type GenerateType = 'mix' | 'negate' | 'blackWhite';
 export interface Options {
     colorAsTextColor: boolean;
     generateType: GenerateType;
+    simpleDesign: boolean;
 }
 
 export type OptionKey = keyof Options;

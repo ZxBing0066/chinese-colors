@@ -31,6 +31,15 @@
     }
 }
 
+@keyframes heart-show {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 0.7;
+    }
+}
+
 body {
     margin: 0;
     -webkit-font-smoothing: antialiased;
@@ -133,7 +142,7 @@ body,
         transform: scale(0.8);
         transition: opacity 0.2s, transform 0.2s cubic-bezier(0.87, -0.09, 0.17, 2.51);
         fill: #ee3f4d;
-
+        animation: heart-show 0.5s;
         &:hover {
             transform: scale(1);
             opacity: 1;
@@ -334,7 +343,8 @@ body,
     .button,
     .line,
     .block,
-    .link {
+    .link,
+    code {
         will-change: color, background-color, border-color, box-shadow;
         transition: color $color-transition-duration, background-color $color-transition-duration,
             border-color $color-transition-duration, box-shadow $color-transition-duration;

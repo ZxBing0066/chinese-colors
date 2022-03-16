@@ -8,6 +8,8 @@ import Display from './Display';
 import { getThemeColor, random } from './utils';
 import { OptionKey, Options, OptionValue } from './Interface';
 
+const colorCount = colors.length;
+
 const defaultColorIndex = 7;
 
 const scrollToColor = (colorIndex: number) => {
@@ -68,24 +70,44 @@ function App() {
         setTextColor(textColor);
     }, [currentColor.hex, options]);
 
-    const randomColor = useCallback((e: KeyboardEvent) => {
-        if (e.key === 'Spacebar' || e.key === ' ' || e.keyCode === 32) {
-            e.preventDefault();
-            setCurrentColorIndex(currentColorIndex => {
-                let randomIndex = random(colors.length - 1);
-                if (randomIndex >= currentColorIndex) randomIndex++;
-                scrollToColor(randomIndex);
-                return randomIndex;
-            });
-        }
-    }, []);
+    const handleKeyDown = useCallback(
+        (e: KeyboardEvent) => {
+            if (e.key === 'Spacebar' || e.key === ' ' || e.keyCode === 32) {
+                e.preventDefault();
+                setCurrentColorIndex(currentColorIndex => {
+                    let randomIndex = random(colors.length - 1);
+                    if (randomIndex >= currentColorIndex) randomIndex++;
+                    scrollToColor(randomIndex);
+                    return randomIndex;
+                });
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                scrollToColor(currentColorIndex);
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                e.preventDefault();
+                setCurrentColorIndex(currentColorIndex => {
+                    const newIndex = Math.max(0, currentColorIndex - 1);
+                    scrollToColor(newIndex);
+                    return newIndex;
+                });
+            } else if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+                e.preventDefault();
+                setCurrentColorIndex(currentColorIndex => {
+                    const newIndex = Math.min(currentColorIndex + 1, colorCount - 1);
+                    scrollToColor(newIndex);
+                    return newIndex;
+                });
+            }
+        },
+        [currentColorIndex]
+    );
 
     useEffect(() => {
-        window.addEventListener('keypress', randomColor);
+        window.addEventListener('keydown', handleKeyDown);
         return () => {
-            window.removeEventListener('keypress', randomColor);
+            window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [randomColor]);
+    }, [handleKeyDown]);
 
     return (
         <Context.Provider value={{ handleChange, options, handleOptionChange }}>

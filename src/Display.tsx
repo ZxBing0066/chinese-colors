@@ -300,7 +300,15 @@ const Common = memo(({ color }: { color: TColor }) => {
                                 可打开设计预览面板，下方可切换选项和进行颜色导出。
                             </p>
                             <p>
-                                使用 <kbd style={{ borderColor: themeColor.lineColor }}>space</kbd> 可随机选择颜色。
+                                <kbd style={{ borderColor: themeColor.lineColor }}>space</kbd> 可随机选择颜色；
+                                <br />
+                                <kbd style={{ borderColor: themeColor.lineColor }}>enter</kbd> 定位到当前颜色；
+                                <br />
+                                <kbd style={{ borderColor: themeColor.lineColor }}>up</kbd>{' '}
+                                <kbd style={{ borderColor: themeColor.lineColor }}>left</kbd> 向前选中颜色；
+                                <br />
+                                <kbd style={{ borderColor: themeColor.lineColor }}>down</kbd>{' '}
+                                <kbd style={{ borderColor: themeColor.lineColor }}>right</kbd> 向后选中颜色；
                             </p>
                             <i className="triangle"></i>
                         </div>

@@ -19,8 +19,7 @@ const scssComment = (hex: string, options: Options) => `// Generate by https://c
     options.simpleDesign
 }`;
 
-const cssSnippet = `
-a {
+const cssSnippet = `a {
     color: var(--color-text);
     text-decoration: underline;
 }
@@ -59,8 +58,7 @@ input:focus,
 textarea:focus {
     border-color: var(--color-line-primary);
     outline: none;
-}
-`;
+}`;
 
 const themeToScssVariable = (theme: ReturnType<typeof getThemeColor>) => {
     return `$color-text: ${theme.textColor};
@@ -70,8 +68,7 @@ $color-background: ${theme.backgroundColor};
 $color-background-primary: ${theme.backgroundColorPrimary};
 $color-background-secondary: ${theme.backgroundColorSecondary};
 $color-border: ${theme.lineColor};
-$color-border-primary: ${theme.lineColorPrimary};
-`;
+$color-border-primary: ${theme.lineColorPrimary};`;
 };
 
 const themeToScss = (theme: ReturnType<typeof getThemeColor>, hex: string, options: Options) => {
@@ -93,8 +90,7 @@ const themeToCssVariable = (theme: ReturnType<typeof getThemeColor>) => {
 --color-background-primary: ${theme.backgroundColorPrimary};
 --color-background-secondary: ${theme.backgroundColorSecondary};
 --color-line: ${theme.lineColor};
---color-line-primary: ${theme.lineColorPrimary};
-`;
+--color-line-primary: ${theme.lineColorPrimary};`;
 };
 
 const themeToCss = (theme: ReturnType<typeof getThemeColor>, hex: string, options: Options) => {
@@ -104,7 +100,7 @@ ${themeToCssVariable(theme)}
 };
 
 const styleToScss = (theme: ReturnType<typeof getThemeColor>, hex: string, options: Options) => {
-    return `${scssComment(hex, options)})}
+    return `${scssComment(hex, options)}
 ${themeToScssVariable(theme)}
 
 :root {

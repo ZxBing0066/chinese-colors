@@ -32,14 +32,13 @@ const Editor = memo(({ color, open }: { color: TColor; open: boolean }) => {
 
     const {
         textColor,
-        textColorActive,
-        textColorSecondary,
         textColorPrimary,
+        textColorSecondary,
         backgroundColor,
-        backgroundColorActive,
+        backgroundColorPrimary,
+        backgroundColorSecondary,
         lineColor,
-        lineColorActive,
-        shadowColor
+        lineColorPrimary
     } = themeColor;
 
     const handleColorAsTextColor = useCallback(() => {
@@ -136,9 +135,9 @@ const Editor = memo(({ color, open }: { color: TColor; open: boolean }) => {
     background-color: ${textColor};
 }
 .preview .button.background:hover {
-    border-color: ${textColorActive};
-    color: ${backgroundColorActive};
-    background-color: ${textColorActive};
+    border-color: ${textColorPrimary};
+    color: ${backgroundColorPrimary};
+    background-color: ${textColorPrimary};
 }
 .preview .button.border {
     background: transparent;
@@ -146,20 +145,18 @@ const Editor = memo(({ color, open }: { color: TColor; open: boolean }) => {
     border-color: ${lineColor};
 }
 .preview .button.border:hover {
-    color: ${textColorActive};
-    border-color: ${lineColorActive};
-    box-shadow: 0 0 3px 2px ${shadowColor};
+    color: ${textColorPrimary};
+    border-color: ${lineColorPrimary};
 }
 .preview .link {
     color: ${textColor};
-    text-decoration: none;
-}
-.preview .link:hover {
-    color: ${textColorActive};
     text-decoration: underline;
 }
+.preview .link:hover {
+    color: ${textColorPrimary};
+}
 .preview blockquote {
-    background-color: ${backgroundColorActive};
+    background-color: ${backgroundColorSecondary};
     border-color: ${lineColor};
     border-left: 3px solid;
     margin: 0 0 1rem 0;
@@ -167,10 +164,10 @@ const Editor = memo(({ color, open }: { color: TColor; open: boolean }) => {
 }
 .preview code {
     color: ${textColorPrimary};
-    background: ${backgroundColorActive};
+    background: ${backgroundColorSecondary};
     padding: .2em .5em;
     border-radius: .3em;
-    border: 1px solid ${lineColorActive};
+    border: 1px solid ${lineColorPrimary};
 }
 `}
                 </style>
@@ -178,13 +175,15 @@ const Editor = memo(({ color, open }: { color: TColor; open: boolean }) => {
             <div className="controls">
                 <select className="control" value={generateType} onChange={handleGenerateType}>
                     <option value="mix">混色</option>
+                    <option value="lightness">光线</option>
                     <option value="blackWhite">黑白</option>
                     <option value="negate">反转</option>
+                    <option value="rotate">转向</option>
                 </select>
-                {/* <div className={'control checkbox' + (simpleDesign ? ' checked' : '')} onClick={handleSimpleDesign}>
+                <div className={'control checkbox' + (simpleDesign ? ' checked' : '')} onClick={handleSimpleDesign}>
                     <strong className="icon" />
-                    素朴配色
-                </div> */}
+                    淡雅
+                </div>
                 <div
                     className={'control checkbox' + (colorAsTextColor ? ' checked' : '')}
                     onClick={handleColorAsTextColor}
@@ -326,7 +325,7 @@ const Display = memo(({ color }: { color: TColor }) => {
             <Editor color={color} open={open}></Editor>
             <div
                 className={'toggler' + (open ? ' open' : '')}
-                style={{ borderColor: themeColor.lineColor }}
+                style={{ borderColor: themeColor.textColor }}
                 onClick={toggle}
             >
                 <Design className="icon" fill={themeColor.textColor} />

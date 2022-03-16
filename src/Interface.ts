@@ -1,6 +1,6 @@
 import colors from './colors.json';
 
-export type GenerateType = 'mix' | 'negate' | 'blackWhite';
+export type GenerateType = 'mix' | 'lightness' | 'blackWhite' | 'negate' | 'rotate';
 
 export interface Options {
     colorAsTextColor: boolean;

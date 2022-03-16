@@ -12,7 +12,10 @@
 
 .export-content {
     border: 1px solid #d8d8da;
-
+    overflow: auto;
+    max-height: 100%;
+    display: flex;
+    flex: 1;
     &:hover {
         border-color: #b1b0b5;
     }

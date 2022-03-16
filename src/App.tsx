@@ -46,7 +46,8 @@ function App() {
     const [textColor, setTextColor] = useState('white');
     const [options, setOptions] = useState<Options>(() => ({
         colorAsTextColor: false,
-        generateType: 'mix'
+        generateType: 'mix',
+        simpleDesign: false
     }));
     const handleOptionChange = useCallback((optionName: OptionKey, optionValue: OptionValue) => {
         setOptions(options => {

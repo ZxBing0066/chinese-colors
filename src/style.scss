@@ -65,7 +65,7 @@ a {
 
 body,
 .main {
-    background-image: url(./texture.png);
+    // background-image: url(./texture.png);
     will-change: background-color, color;
     transition: background-color $color-transition-duration, color $color-transition-duration;
 }
@@ -334,7 +334,7 @@ body,
     transition: transform cubic-bezier(0.68, -0.14, 0.15, 1.35) 0.5s, background $color-transition-duration;
     font-family: $default-font-hz;
     padding: 3rem 0 0 2em;
-    background-image: url(./texture.png);
+    // background-image: url(./texture.png);
     .preview {
         padding-right: 2rem;
         flex: 1 0;

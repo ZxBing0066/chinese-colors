@@ -1,4 +1,5 @@
 import Color from 'color';
+
 import { Options } from './Interface';
 
 const mixWhite = Color('#fff'),
@@ -7,30 +8,31 @@ const mixWhite = Color('#fff'),
 const exponent = 0.4;
 const mixWeight = 0.3;
 
-const contrastValid = (textColor: string, backgroundColor: string) =>
-    Color(textColor).contrast(Color(backgroundColor)) < 4.6;
+const contrastValid = (textColor: Color, backgroundColor: Color) => textColor.contrast(backgroundColor) < 5;
 
 const rotate = (hex: string, asTextColor?: boolean) => {
     const color = Color(hex);
-    const contrastColor = color.rotate(30);
-    return asTextColor ? [hex, contrastColor] : [contrastColor, hex];
+    const l = color.lightness();
+    const contrastColor = color.rotate(270).lightness(l > 50 ? l - 50 : l + 50);
+    return asTextColor ? [color, contrastColor] : [contrastColor, color];
 };
 
 const mix = (hex: string, asTextColor?: boolean) => {
-    let contrastColor;
+    let contrastColor: Color;
     const color = Color(hex);
     const isDark = color.isDark();
     contrastColor = isDark
-        ? color.mix(mixWhite, mixWeight).lighten(exponent).hex()
-        : color.mix(mixBlack, mixWeight).darken(exponent).hex();
-    while (
-        contrastValid(hex, contrastColor) &&
-        contrastColor.toUpperCase() !== '#FFFFFF' &&
-        contrastColor !== '#000000'
-    ) {
-        contrastColor = Color(contrastColor)[isDark ? 'lighten' : 'darken'](0.1).hex();
+        ? color.mix(mixWhite, mixWeight).lighten(exponent)
+        : color.mix(mixBlack, mixWeight).darken(exponent);
+    while (contrastValid(color, contrastColor) && contrastColor.lightness() > 99 && contrastColor.lightness() < 1) {
+        const newContrastColor = Color(contrastColor)[isDark ? 'lighten' : 'darken'](0.1);
+        if (newContrastColor === contrastColor) {
+            break;
+        } else {
+            contrastColor = newContrastColor;
+        }
     }
-    return asTextColor ? [hex, contrastColor] : [contrastColor, hex];
+    return asTextColor ? [color, contrastColor] : [contrastColor, color];
 };
 
 const negateColor = (c: number) => {
@@ -39,7 +41,6 @@ const negateColor = (c: number) => {
 
 const negate = (hex: string, asTextColor?: boolean) => {
     const color = Color(hex);
-
     const red = color.red(),
         green = color.green(),
         blue = color.blue();
@@ -50,14 +51,7 @@ const negate = (hex: string, asTextColor?: boolean) => {
     } else if (green >= red && green >= blue) {
         type = 'green';
     }
-    // const negateArray = [255 - red, 255 - green, 255 - blue];
-    // negateArray.forEach((c, i) => {
-    //     if (c > 101 && c < 129) {
-    //         negateArray[i] = c - 50;
-    //     } else if (c > 128 && c < 156) {
-    //         negateArray[i] = c + 50;
-    //     }
-    // });
+
     const negateArray = [negateColor(red), negateColor(green), negateColor(blue)];
 
     switch (type) {
@@ -73,52 +67,100 @@ const negate = (hex: string, asTextColor?: boolean) => {
             break;
     }
 
-    const contrastColor = Color.rgb(negateArray).hex();
+    const l = color.lightness();
+    const contrastColor = Color.rgb(negateArray).lightness(l > 50 ? l - 50 : l + 50);
 
-    return asTextColor ? [hex, contrastColor] : [contrastColor, hex];
+    return asTextColor ? [color, contrastColor] : [contrastColor, color];
 };
 
 const blackWhite = (hex: string, asTextColor?: boolean) => {
     const color = Color(hex);
     const isDark = color.isDark();
-    const contrastColor = isDark ? '#fffef8' : '#202124';
+    const contrastColor = Color(isDark ? '#fffef8' : '#202124');
 
-    return asTextColor ? [hex, contrastColor] : [contrastColor, hex];
+    return asTextColor ? [color, contrastColor] : [contrastColor, color];
+};
+
+const lightnessBlackWhite = (hex: string, asTextColor?: boolean) => {
+    const color = Color(hex);
+    const isDark = color.isDark();
+    const { black, white } = getBasicColor(hex);
+    const contrastColor = isDark ? white : black;
+
+    return asTextColor ? [color, contrastColor] : [contrastColor, color];
 };
 
 const generatorMap = {
     mix,
     negate,
-    blackWhite
+    rotate,
+    blackWhite,
+    lightness: lightnessBlackWhite
 };
 
 export const getThemeColor = (hex: string, options: Options) => {
-    const { colorAsTextColor, generateType } = options;
+    const { colorAsTextColor, generateType, simpleDesign } = options;
     const [textColor, backgroundColor] = generatorMap[generateType](hex, colorAsTextColor);
-    const isDark = !Color(textColor).isDark();
-    const lineColor = isDark
-        ? Color(textColor).blacken(0.1).rgb().string()
-        : Color(textColor).whiten(0.1).rgb().string();
+
+    if (simpleDesign) return getSimpleDesignThemeColor(textColor, backgroundColor);
+
+    const isDark = !textColor.isDark();
+
+    const gray = textColor.gray();
+    const lineColor = textColor.gray(isDark ? gray + 20 : gray - 20);
+
+    const hue = textColor.hue(),
+        saturation = textColor.saturationl(),
+        lightness = textColor.lightness();
+    const bgHue = backgroundColor.hue(),
+        bgSaturation = backgroundColor.saturationl(),
+        bgLightness = backgroundColor.lightness();
+
     return {
-        textColor: Color(textColor).fade(0.15).rgb().string(),
-        textColorActive: textColor,
-        textColorPrimary: textColor,
-        textColorSecondary: Color(textColor).fade(0.3).rgb().string(),
-        backgroundColor: (isDark ? Color(backgroundColor).blacken(0.1) : Color(backgroundColor).whiten(0.1))
-            .rgb()
-            .string(),
-        backgroundColorActive: backgroundColor,
-        lineColor: Color(lineColor).fade(0.15).rgb().string(),
-        lineColorActive: lineColor,
-        shadowColor: Color(lineColor).fade(0.25).rgb().string()
+        textColor: textColor.hex(),
+        textColorPrimary: textColor
+            .saturationl(saturation + 10)
+            .lightness(isDark ? lightness + 10 : lightness - 10)
+            .hex(),
+        textColorSecondary: textColor
+            .saturationl(saturation - 5)
+            .lightness(isDark ? lightness - 5 : lightness + 5)
+            .hex(),
+        backgroundColor: backgroundColor.hex(),
+        backgroundColorPrimary: backgroundColor
+            .saturationl(bgSaturation + 10)
+            .lightness(isDark ? bgLightness + 10 : bgLightness - 10)
+            .hex(),
+        backgroundColorSecondary: backgroundColor
+            .saturationl(bgSaturation - 5)
+            .lightness(isDark ? bgLightness - 5 : bgLightness + 5)
+            .hex(),
+        lineColor: lineColor.hex(),
+        lineColorPrimary: textColor.hex()
+    };
+};
+
+export const getSimpleDesignThemeColor = (primaryTextColor: Color, backgroundColor: Color) => {
+    const isDark = backgroundColor.isDark();
+
+    const { black, white } = getBasicColor(primaryTextColor.hex());
+    const textColor = isDark ? white : black;
+    const lightness = textColor.lightness(),
+        gray = textColor.gray();
+
+    return {
+        textColor: textColor.hex(),
+        textColorPrimary: primaryTextColor.hex(),
+        textColorSecondary: textColor.lightness(lightness + (isDark ? -20 : 20)).hex(),
+        backgroundColor: backgroundColor.hex(),
+        backgroundColorPrimary: backgroundColor.saturationl(backgroundColor.saturationl() + 10).hex(),
+        backgroundColorSecondary: backgroundColor.saturationl(backgroundColor.saturationl() + 10).hex(),
+        lineColor: textColor.lightness(lightness + (isDark ? -25 : 25)).hex(),
+        lineColorPrimary: primaryTextColor.hex()
     };
 };
 
 export const random = (max: number) => Math.floor(Math.random() * max);
-
-export const exportCSS = (hex: string, options: Options) => {
-    const a = 1;
-};
 
 const FAV_LOCAL_KEY = '__FAV__';
 
@@ -143,3 +185,17 @@ export const favStorage = (() => {
         get
     };
 })();
+
+const getBasicColor = (hex: string) => {
+    const color = Color(hex);
+    const black = color.mix(Color('#000'), 0.9).lightness(5);
+    const white = color.mix(Color('#fff'), 0.9).lightness(95);
+    return {
+        black,
+        white
+    };
+};
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+window.Color = Color;

@@ -78,6 +78,8 @@ function App() {
                     let randomIndex = random(colors.length - 1);
                     if (randomIndex >= currentColorIndex) randomIndex++;
                     scrollToColor(randomIndex);
+                    const color = colors[randomIndex];
+                    history.replaceState(null, '', `/#${color.pinyin}`);
                     return randomIndex;
                 });
             } else if (e.key === 'Enter') {

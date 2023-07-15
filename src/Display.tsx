@@ -253,9 +253,9 @@ const Common = memo(({ color }: { color: TColor }) => {
             <footer className="footer">
                 <div className="copyright">
                     <p>
-                        Copyright © 2021 by{' '}
+                        Copyright © 2021 - {new Date().getFullYear()} by{' '}
                         <a href="https://github.com/ZxBing0066/" target="_blank" rel="noopener">
-                            ZxBing0066
+                            嘿嘿
                         </a>
                     </p>
 

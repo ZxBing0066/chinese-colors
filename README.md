@@ -26,4 +26,4 @@ https://chinese-colors.heyfe.org/
 
 ![](https://stg.heyfe.org/images/5059d9b6107773e9bd3e883f73a1d2aa0d049bc5b11cd434b4473ee376deb7a2.png)
 
-如果想要分享页面当前的配色效果可直接点击对应颜色后复制链接地址进行分享。
+如果想要分享页面当前的配色效果可直接点击对应颜色后复制链接地址进行分享。如：https://chinese-colors.heyfe.org/#qianlaohuang 打开后会自动定位到 `浅烙黄` 色。

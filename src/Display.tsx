@@ -5,6 +5,7 @@ import { getThemeColor } from './utils';
 import Context from './Context';
 import { TColor } from './Interface';
 import Design from './icons/Design';
+import Github from './icons/Github';
 
 const ExportModal = lazy(() => import('./ExportModal'));
 
@@ -255,7 +256,7 @@ const Common = memo(({ color }: { color: TColor }) => {
                     <p>
                         Copyright © 2021 - {new Date().getFullYear()} by{' '}
                         <a href="https://github.com/ZxBing0066/" target="_blank" rel="noopener">
-                            嘿嘿
+                            嘿嘿.
                         </a>
                     </p>
 
@@ -287,30 +288,35 @@ const Common = memo(({ color }: { color: TColor }) => {
                         </div>
                     </div>
                 </div>
-                <div className="question">
-                    <i className="icon"></i>
-                    <div className="card">
-                        <div className="content">
-                            <h2>站点说明</h2>
-                            <p>
-                                本站用作网站设计相关的主题变量生成，可按照选择的颜色生成网页中的字色、边框色、背景色。
-                            </p>
-                            <p>
-                                使用网站右侧的 <Design style={{ height: '.8em', fill: 'currentColor' }} />{' '}
-                                可打开设计预览面板，下方可切换选项和进行颜色导出。
-                            </p>
-                            <p>
-                                <kbd style={{ borderColor: themeColor.lineColor }}>space</kbd> 可随机选择颜色；
-                                <br />
-                                <kbd style={{ borderColor: themeColor.lineColor }}>enter</kbd> 定位到当前颜色；
-                                <br />
-                                <kbd style={{ borderColor: themeColor.lineColor }}>up</kbd>{' '}
-                                <kbd style={{ borderColor: themeColor.lineColor }}>left</kbd> 向前选中颜色；
-                                <br />
-                                <kbd style={{ borderColor: themeColor.lineColor }}>down</kbd>{' '}
-                                <kbd style={{ borderColor: themeColor.lineColor }}>right</kbd> 向后选中颜色；
-                            </p>
-                            <i className="triangle"></i>
+                <div className="box">
+                    <a className="github" href="https://github.com/ZxBing0066/chinese-colors" target="_blank">
+                        <Github className="icon" />
+                    </a>
+                    <div className="question">
+                        <i className="icon"></i>
+                        <div className="card">
+                            <div className="content">
+                                <h2>站点说明</h2>
+                                <p>
+                                    本站用作网站设计相关的主题变量生成，可按照选择的颜色生成网页中的字色、边框色、背景色。
+                                </p>
+                                <p>
+                                    使用网站右侧的 <Design style={{ height: '.8em', fill: 'currentColor' }} />{' '}
+                                    可打开设计预览面板，下方可切换选项和进行颜色导出。
+                                </p>
+                                <p>
+                                    <kbd style={{ borderColor: themeColor.lineColor }}>space</kbd> 可随机选择颜色；
+                                    <br />
+                                    <kbd style={{ borderColor: themeColor.lineColor }}>enter</kbd> 定位到当前颜色；
+                                    <br />
+                                    <kbd style={{ borderColor: themeColor.lineColor }}>up</kbd>{' '}
+                                    <kbd style={{ borderColor: themeColor.lineColor }}>left</kbd> 向前选中颜色；
+                                    <br />
+                                    <kbd style={{ borderColor: themeColor.lineColor }}>down</kbd>{' '}
+                                    <kbd style={{ borderColor: themeColor.lineColor }}>right</kbd> 向后选中颜色；
+                                </p>
+                                <i className="triangle"></i>
+                            </div>
                         </div>
                     </div>
                 </div>

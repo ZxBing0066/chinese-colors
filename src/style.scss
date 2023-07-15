@@ -513,8 +513,16 @@ $footer-margin: 1.5rem;
     }
 }
 
+.footer .box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
 .info,
-.question {
+.question,
+.github {
     display: inline-block;
     will-change: transform, background-color;
     margin-left: 0.5rem;
@@ -588,19 +596,24 @@ $footer-margin: 1.5rem;
         transform: scale(0.7);
     }
 }
-.question {
+.question,
+.github {
     .icon {
         width: 1.2rem;
         height: 1.2rem;
         border-width: 3px;
         line-height: normal;
-        &::before {
-            content: '?';
-        }
     }
     &:hover {
         .icon {
             animation: 1s forwards shake;
+        }
+    }
+}
+.question {
+    .icon {
+        &::before {
+            content: '?';
         }
     }
     .card {
